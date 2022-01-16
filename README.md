@@ -1,4 +1,13 @@
-# Shopify App Node
+# Shopify Node App Starter
+
+This is a starter template for embedded shopify apps based on the [shopify cli node app](https://github.com/Shopify/shopify-app-node).
+
+## Changes to the default Shopify node app starter
+
+- Updated dependencies (@apollo/client instead of react-apollo, react 17, next.js 12, polaris 7)
+- MongoDB session storage already set up (full credit goes to [Harshdeep Singh Hura](https://github.com/kinngh/shopify-node-mongodb-next-app))
+- App context set up. Can be used to store data, that only needs to be fetched once, but is needed in multiple places
+- Routepropagtion set up
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md)
 [![Build Status](https://travis-ci.com/Shopify/shopify-app-node.svg?branch=master)](https://travis-ci.com/Shopify/shopify-app-node)
@@ -7,13 +16,7 @@ Boilerplate to create an embedded Shopify app made with Node, [Next.js](https://
 
 ## Installation
 
-Using the [Shopify CLI](https://github.com/Shopify/shopify-cli) run:
-
-```sh
-~/ $ shopify node create -n APP_NAME
-```
-
-Or, fork and clone repo
+Fork and clone repo
 
 ## Requirements
 
@@ -23,7 +26,7 @@ Or, fork and clone repo
 
 ## Usage
 
-This repository is used by [Shopify CLI](https://github.com/Shopify/shopify-cli) as a scaffold for Node apps. You can clone or fork it yourself, but it’s faster and easier to use Shopify App CLI, which handles additional routine development tasks for you.
+Same usage as apps created with the [Shopify CLI](https://github.com/Shopify/shopify-cli)
 
 ## License
 
