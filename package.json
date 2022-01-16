@@ -1,0 +1,71 @@
+{
+  "name": "shopify-app-node",
+  "version": "1.0.0",
+  "description": "Shopify's node app for CLI tool",
+  "scripts": {
+    "test": "jest",
+    "dev": "cross-env NODE_ENV=development nodemon ./server/index.js --watch ./server/index.js",
+    "build": "NEXT_TELEMETRY_DISABLED=1 next build",
+    "start": "cross-env NODE_ENV=production node ./server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/shopify-app-node.git"
+  },
+  "author": "Shopify Inc.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shopify/shopify-app-node/issues"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.5.7",
+    "@babel/core": "7.12.10",
+    "@babel/polyfill": "^7.6.0",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/register": "^7.12.10",
+    "@shopify/app-bridge-react": "^2.0.5",
+    "@shopify/app-bridge-utils": "^2.0.5",
+    "@shopify/koa-shopify-auth": "^4.1.4",
+    "@shopify/polaris": "^7.5.0",
+    "cross-env": "^7.0.3",
+    "cryptr": "^6.0.2",
+    "dotenv": "^8.2.0",
+    "graphql": "^16.2.0",
+    "isomorphic-fetch": "^3.0.0",
+    "koa": "^2.13.4",
+    "koa-router": "^10.1.1",
+    "koa-session": "^6.2.0",
+    "mongoose": "^6.1.6",
+    "next": "^12.0.8",
+    "next-env": "^1.1.0",
+    "node-fetch": "^3.1.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "webpack": "^4.44.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/preset-stage-3": "^7.0.0",
+    "babel-jest": "26.6.3",
+    "babel-register": "^6.26.0",
+    "enzyme": "3.11.0",
+    "enzyme-adapter-react-16": "1.15.6",
+    "husky": "^4.3.6",
+    "jest": "26.6.3",
+    "lint-staged": "^10.5.4",
+    "nodemon": "^2.0.7",
+    "prettier": "2.2.1",
+    "react-addons-test-utils": "15.6.2",
+    "react-test-renderer": "16.14.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,json,md}": [
+      "prettier --write"
+    ]
+  }
+}
