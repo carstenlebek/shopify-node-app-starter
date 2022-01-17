@@ -61,11 +61,37 @@ function MyProvider(props) {
   );
 }
 
+const IS_EXTERNAL_LINK_REGEX = /^(?:[a-z][a-z\d+.-]*:|\/\/)/;
+
+function LinkComponent({ children, url = "", external, ref, ...rest }) {
+  // The Link component evaluates all 'a' tags
+
+  // If the 'a' tags href is an external url, everything stays the same
+
+  if (external || IS_EXTERNAL_LINK_REGEX.test(url)) {
+    rest.target = "_blank";
+    rest.rel = "noopener noreferrer";
+    return (
+      <a href={url} {...rest}>
+        {children}
+      </a>
+    );
+  }
+
+  // If the href is a relative path next/link will be used for routing
+
+  return (
+    <Link href={url}>
+      <div {...rest}>{children}</div>
+    </Link>
+  );
+}
+
 class MyApp extends App {
   render() {
     const { Component, pageProps, host } = this.props;
     return (
-      <AppProvider i18n={translations}>
+      <AppProvider i18n={translations} linkComponent={LinkComponent}>
         <Provider
           config={{
             apiKey: API_KEY,
