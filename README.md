@@ -13,7 +13,10 @@ Boilerplate to create an embedded Shopify app made with Node, [Next.js](https://
 
 ## Installation
 
-Fork and clone repo
+- Fork and clone repo
+- Create an app in the shopify partner dashboard
+- Run `shopify app connect` to connect the app to shopify
+- Run `shopify app serve` to start dev enviroment
 
 ## Requirements
 
