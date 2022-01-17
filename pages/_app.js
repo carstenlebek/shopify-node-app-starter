@@ -13,6 +13,7 @@ import "@shopify/polaris/build/esm/styles.css";
 import translations from "@shopify/polaris/locales/en.json";
 import RoutePropagator from "../utils/routepropagator";
 import { AppContext } from "../context/context";
+import Link from "next/link";
 
 function userLoggedInFetch(app) {
   const fetchFunction = authenticatedFetch(app);
