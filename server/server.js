@@ -43,7 +43,7 @@ Shopify.Context.initialize({
   API_SECRET_KEY: process.env.SHOPIFY_API_SECRET,
   SCOPES: process.env.SCOPES.split(","),
   HOST_NAME: process.env.HOST.replace(/https:\/\/|\/$/g, ""),
-  API_VERSION: ApiVersion.October20,
+  API_VERSION: "2022-01",
   IS_EMBEDDED_APP: true,
   SESSION_STORAGE: sessionStorage,
 });
@@ -114,15 +114,17 @@ app.prepare().then(async () => {
       isOnline,
       accessToken,
       scope,
-    } = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res, false);
+    } = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
+
+    console.log(id, shop, state, isOnline, accessToken, scope);
 
     ctx.body = JSON.stringify({
-      id,
-      shop,
-      state,
-      isOnline,
-      accessToken,
-      scope,
+      id: id,
+      shop: shop,
+      state: state,
+      isOnline: isOnline,
+      accessToken: accessToken,
+      scope: scope,
     });
     ctx.status = 200;
   });

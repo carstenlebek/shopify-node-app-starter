@@ -1,6 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import { useAppBridge } from "@shopify/app-bridge-react";
-import { createContext, useContext, useState, useMemo } from "react";
+import { createContext, useContext, useState, useMemo, useEffect } from "react";
 import exampleFetch from "../utils/exampleFetch";
 
 const QUERY = gql`
@@ -21,12 +21,12 @@ export function AppContext({ children }) {
   const [appContext, setAppContext] = useState({
     shop: { name: "", myshopifyDomain: "", email: "" },
     session: {
-      id,
-      shop,
-      state,
-      isOnline,
-      accessToken,
-      scope,
+      id: "",
+      shop: "",
+      state: "",
+      isOnline: "",
+      accessToken: "",
+      scope: "",
     },
   });
   const [loading, setLoading] = useState(true);
@@ -34,17 +34,21 @@ export function AppContext({ children }) {
   const [fetchLoading, setFetchLoading] = useState(true);
   const getSession = () => {
     exampleFetch(app).then((result) => {
+      console.log(result);
       setAppContext({ ...appContext, session: result });
       setFetchLoading(false);
     });
   };
 
   const { loading: queryLoading } = useQuery(QUERY, {
-    onCompleted: (data) => setAppContext(data),
+    onCompleted: (data) => setAppContext({ ...appContext, shop: data.shop }),
   });
 
   useEffect(() => {
     getSession();
+  }, []);
+
+  useEffect(() => {
     if (!fetchLoading && !queryLoading) {
       setLoading(false);
     }
