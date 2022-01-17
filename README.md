@@ -2,6 +2,8 @@
 
 This is a starter template for embedded shopify apps based on the [shopify cli node app](https://github.com/Shopify/shopify-app-node).
 
+Contributions to create the perfect shopify app boilerplate are very welcome! 🤩
+
 ## Changes to the default Shopify node app starter
 
 - Updated dependencies (@apollo/client instead of react-apollo, react 17, next.js 12, polaris 7)
