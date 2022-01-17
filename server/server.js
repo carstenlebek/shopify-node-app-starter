@@ -104,6 +104,29 @@ app.prepare().then(async () => {
     }
   );
 
+  // API routes HAVE to start with '/api/'
+
+  router.get("/api/example", verifyRequest(), async (ctx, next) => {
+    const {
+      id,
+      shop,
+      state,
+      isOnline,
+      accessToken,
+      scope,
+    } = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res, false);
+
+    ctx.body = JSON.stringify({
+      id,
+      shop,
+      state,
+      isOnline,
+      accessToken,
+      scope,
+    });
+    ctx.status = 200;
+  });
+
   router.get("(/_next/static/.*)", handleRequest); // Static content is clear
   router.get("/_next/webpack-hmr", handleRequest); // Webpack content is clear
   router.get("(.*)", async (ctx) => {
