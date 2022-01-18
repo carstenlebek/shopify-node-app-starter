@@ -116,8 +116,6 @@ app.prepare().then(async () => {
       scope,
     } = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
 
-    console.log(id, shop, state, isOnline, accessToken, scope);
-
     ctx.body = JSON.stringify({
       id: id,
       shop: shop,
