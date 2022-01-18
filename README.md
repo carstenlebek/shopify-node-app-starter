@@ -12,6 +12,7 @@ Contributions to create the perfect shopify app boilerplate are very welcome! ðŸ
 - Link component to convert `<a>` tags to [Next Links](https://nextjs.org/docs/api-reference/next/link) for relative paths
 - Routepropagation set up
 - Example API with `verifyRequest()` is set up
+- Examples for creating, displaying and canceling of app subscriptions
 - Loading screen while the app context is loading
 
 Boilerplate to create an embedded Shopify app made with Node, [Next.js](https://nextjs.org/), [Shopify-koa-auth](https://github.com/Shopify/quilt/tree/master/packages/koa-shopify-auth), [Polaris](https://github.com/Shopify/polaris-react) and [App Bridge React](https://shopify.dev/tools/app-bridge/react-components).
