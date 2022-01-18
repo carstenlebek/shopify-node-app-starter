@@ -1,7 +1,7 @@
 {
-  "name": "shopify-app-node",
+  "name": "shopify-node-app-starter",
   "version": "1.0.0",
-  "description": "Shopify's node app for CLI tool",
+  "description": "🚀🚀 A Shopify embedded app starter template, with updated dependencies, session storage, app context and examples for basic functionalities.",
   "scripts": {
     "test": "jest",
     "dev": "cross-env NODE_ENV=development nodemon ./server/index.js --watch ./server/index.js --watch ./server/server.js",
@@ -10,12 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/shopify-app-node.git"
+    "url": "git+https://github.com/carstenlebek/shopify-node-app-starter"
   },
-  "author": "Shopify Inc.",
+  "author": "Carsten Lebek",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/shopify/shopify-app-node/issues"
+    "url": "https://github.com/carstenlebek/shopify-node-app-starter/issues"
   },
   "dependencies": {
     "@apollo/client": "^3.5.7",
