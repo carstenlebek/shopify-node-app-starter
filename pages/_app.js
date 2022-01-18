@@ -55,7 +55,7 @@ function MyProvider(props) {
 
   return (
     <ApolloProvider client={client}>
-      <AppContext>
+      <AppContext host={props.host}>
         <Component {...props} />
       </AppContext>
     </ApolloProvider>
@@ -100,7 +100,7 @@ class MyApp extends App {
             forceRedirect: true,
           }}
         >
-          <MyProvider Component={Component} {...pageProps} />
+          <MyProvider Component={Component} host={host} {...pageProps} />
           <RoutePropagator />
         </Provider>
       </AppProvider>

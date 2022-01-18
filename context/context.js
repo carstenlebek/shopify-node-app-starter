@@ -15,10 +15,11 @@ const QUERY = gql`
 
 const Context = createContext();
 
-export function AppContext({ children }) {
+export function AppContext({ children, host }) {
   const app = useAppBridge();
 
   const [appContext, setAppContext] = useState({
+    host: host,
     shop: { name: "", myshopifyDomain: "", email: "" },
     session: {
       id: "",

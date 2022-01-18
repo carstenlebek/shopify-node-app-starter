@@ -1,4 +1,5 @@
 import { Card, Page, Stack, TextContainer } from "@shopify/polaris";
+import { appSubscriptionCreate } from "../billing/mutations";
 import AppLoader from "../components/AppLoader";
 import { useAppContext } from "../context/context";
 
@@ -12,7 +13,10 @@ const Index = () => {
   if (loading) return <AppLoader />;
 
   return (
-    <Page title="Shopify app with Node and React 🎉">
+    <Page
+      title="Shopify app with Node and React 🎉"
+      primaryAction={{ content: "Plans", url: "/subscription" }}
+    >
       <Stack vertical>
         <Card sectioned title="Shopname">
           <TextContainer>{name}</TextContainer>
