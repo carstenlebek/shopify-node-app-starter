@@ -1,5 +1,4 @@
 import { Card, Page, Stack, TextContainer } from "@shopify/polaris";
-import { appSubscriptionCreate } from "../billing/mutations";
 import AppLoader from "../components/AppLoader";
 import { useAppContext } from "../context/context";
 
