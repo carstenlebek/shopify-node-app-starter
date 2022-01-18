@@ -2,13 +2,11 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { Redirect } from "@shopify/app-bridge/actions";
 import {
-  Button,
   Card,
   Layout,
   Page,
   Spinner,
   Stack,
-  Subheading,
   TextContainer,
 } from "@shopify/polaris";
 import React, { useState } from "react";
@@ -24,8 +22,6 @@ export default function Subscription() {
   const { appContext } = useAppContext();
   const app = useAppBridge();
   const redirect = Redirect.create(app);
-
-  console.log(app.getState());
 
   const { myshopifyDomain } = appContext.shop;
 
@@ -53,12 +49,9 @@ export default function Subscription() {
     });
   };
 
-  const [appInstallationId, setAppInstallationId] = useState("");
   const [activeSubscription, setActiveSubscription] = useState(null);
   const { data, loading } = useQuery(getActiveSubscriptions, {
     onCompleted: (data) => {
-      console.log(data);
-      //   setAppInstallationId(data.appInstallation.id);
       setActiveSubscription(data.appInstallation.activeSubscriptions[0]);
     },
   });
