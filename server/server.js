@@ -9,8 +9,12 @@ import Router from "koa-router";
 
 import mongoose from "mongoose";
 import { webhooks } from "../webhooks/index.js";
+import Cryptr from "cryptr";
 const sessionStorage = require("./../utils/sessionStorage.js");
 const SessionModel = require("./../models/SessionModel.js");
+const ShopModel = require("./../models/ShopModel.js");
+
+const cryption = new Cryptr(process.env.ENCRYPTION_STRING);
 
 // MongoDB Connection
 const mongoUrl =
@@ -64,7 +68,11 @@ app.prepare().then(async () => {
   const router = new Router();
   server.keys = [Shopify.Context.API_SECRET_KEY];
 
+  let useOfflineAccessToken = false;
+
   // Uncomment to use offline and online access tokens
+
+  // useOfflineAccessToken = true;
 
   // server.use(
   //   createShopifyAuth({
@@ -171,13 +179,31 @@ app.prepare().then(async () => {
   router.get("/_next/webpack-hmr", handleRequest); // Webpack content is clear
   router.get("(.*)", async (ctx) => {
     const shop = ctx.query.shop;
-    const findShopCount = await SessionModel.countDocuments({ shop });
 
-    if (findShopCount < 2) {
-      await SessionModel.deleteMany({ shop });
-      ctx.redirect(`/auth?shop=${shop}`);
+    if (useOfflineAccessToken) {
+      const isInstalled = await ShopModel.countDocuments({ shop });
+
+      if (isInstalled === 0) {
+        ctx.redirect(`/install/auth?shop=${shop}`);
+      } else {
+        const findShopCount = await SessionModel.countDocuments({ shop });
+
+        if (findShopCount < 2) {
+          await SessionModel.deleteMany({ shop });
+          ctx.redirect(`/auth?shop=${shop}`);
+        } else {
+          await handleRequest(ctx);
+        }
+      }
     } else {
-      await handleRequest(ctx);
+      const findShopCount = await SessionModel.countDocuments({ shop });
+
+      if (findShopCount < 2) {
+        await SessionModel.deleteMany({ shop });
+        ctx.redirect(`/auth?shop=${shop}`);
+      } else {
+        await handleRequest(ctx);
+      }
     }
   });
 
