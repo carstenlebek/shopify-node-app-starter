@@ -12,6 +12,7 @@ Contributions to create the perfect shopify app boilerplate are very welcome! ðŸ
 - Link component to convert `<a>` tags to [Next Links](https://nextjs.org/docs/api-reference/next/link) for relative paths
 - Routepropagation set up
 - Example API with `verifyRequest()` is set up
+- Webhook registration and persistance after server restart
 - Examples for creating, displaying and canceling of app subscriptions
 - Loading screen while the app context is loading
 
