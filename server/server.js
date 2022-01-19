@@ -8,6 +8,7 @@ import next from "next";
 import Router from "koa-router";
 
 import mongoose from "mongoose";
+import { webhooks } from "../webhooks/index.js";
 const sessionStorage = require("./../utils/sessionStorage.js");
 const SessionModel = require("./../models/SessionModel.js");
 
@@ -48,6 +49,16 @@ Shopify.Context.initialize({
   SESSION_STORAGE: sessionStorage,
 });
 
+// Reload webhooks after server restart
+
+for (const webhook of webhooks) {
+  Shopify.Webhooks.Registry.webhookRegistry.push({
+    path: webhook.path,
+    topic: webhook.topic,
+    webhookHandler: webhook.webhookHandler,
+  });
+}
+
 app.prepare().then(async () => {
   const server = new Koa();
   const router = new Router();
@@ -60,19 +71,22 @@ app.prepare().then(async () => {
         const host = ctx.query.host;
         // ACTIVE_SHOPIFY_SHOPS[shop] = scope;
 
-        const response = await Shopify.Webhooks.Registry.register({
-          shop,
-          accessToken,
-          path: "/webhooks",
-          topic: "APP_UNINSTALLED",
-          webhookHandler: async (topic, shop, body) =>
-            delete ACTIVE_SHOPIFY_SHOPS[shop],
-        });
+        for (const webhook of webhooks) {
+          const response = await Shopify.Webhooks.Registry.register({
+            shop,
+            accessToken,
+            path: webhook.path,
+            topic: webhook.topic,
+            webhookHandler: webhook.webhookHandler,
+          });
 
-        if (!response.success) {
-          console.log(
-            `Failed to register APP_UNINSTALLED webhook: ${response.result}`
-          );
+          if (!response.success) {
+            console.log(
+              `Failed to register ${webhook.topic} webhook: ${response.result}`
+            );
+          } else {
+            console.log(`Successfully registered ${webhook.topic} webhook.`);
+          }
         }
 
         // Redirect to app with shop parameter upon auth
