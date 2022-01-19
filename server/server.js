@@ -63,6 +63,32 @@ app.prepare().then(async () => {
   const server = new Koa();
   const router = new Router();
   server.keys = [Shopify.Context.API_SECRET_KEY];
+
+  // Uncomment to use offline and online access tokens
+
+  // server.use(
+  //   createShopifyAuth({
+  //     accessMode: "offline",
+  //     prefix: "/install",
+  //     async afterAuth(ctx) {
+  //       const { shop, accessToken, scope } = ctx.state.shopify;
+  //       const host = ctx.query.host;
+
+  //       const result = await ShopModel.findOne({ shop: shop });
+
+  //       if (!result) {
+  //         await ShopModel.create({
+  //           shop: shop,
+  //           accessToken: cryption.encrypt(accessToken),
+  //           scope: scope,
+  //         }).then(() => ctx.redirect(`/auth?shop=${shop}&host=${host}`));
+  //       } else {
+  //         ctx.redirect(`/auth?shop=${shop}&host=${host}`);
+  //       }
+  //     },
+  //   })
+  // );
+
   server.use(
     createShopifyAuth({
       async afterAuth(ctx) {
