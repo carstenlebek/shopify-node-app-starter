@@ -8,6 +8,7 @@ Contributions to create the perfect shopify app boilerplate are very welcome! ðŸ
 
 - Updated dependencies (@apollo/client instead of react-apollo, react 17, next.js 12, polaris 7)
 - MongoDB session storage already set up (full credit goes to [Harshdeep Singh Hura](https://github.com/kinngh/shopify-node-mongodb-next-app))
+- Ready to use online and offline accesstokens simultaneously
 - App context set up. Can be used to store data, that only needs to be fetched once, but is needed in multiple places
 - Link component to convert `<a>` tags to [Next Links](https://nextjs.org/docs/api-reference/next/link) for relative paths
 - Routepropagation set up
