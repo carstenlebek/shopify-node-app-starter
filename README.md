@@ -26,6 +26,7 @@ Boilerplate to create an embedded Shopify app made with Node, [Next.js](https://
 - Fork and clone repo
 - Create an app in the shopify partner dashboard
 - Run `shopify app connect` to connect the app to shopify
+- Run `npm install` to install dependencies
 - Add `ENCRYTION_STRING` and `MONGO_URL` to your `.env` file (.env example is in the root directory)
 - Run `shopify app serve` to start dev enviroment
 
