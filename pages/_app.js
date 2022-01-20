@@ -47,7 +47,7 @@ function userLoggedInFetch(app) {
 function MyProvider(props) {
   const app = useAppBridge();
 
-  // Add type policies to the cache
+  // * Add type policies to Apollo Client
 
   const client = new ApolloClient({
     cache: new InMemoryCache({
