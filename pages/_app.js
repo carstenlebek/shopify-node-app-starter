@@ -91,6 +91,14 @@ function LinkComponent({ children, url = "", external, ref, ...rest }) {
 class MyApp extends App {
   render() {
     const { Component, pageProps, host } = this.props;
+
+    if (!host)
+      return (
+        <AppProvider i18n={translations}>
+          <Component {...pageProps} />
+        </AppProvider>
+      );
+
     return (
       <AppProvider i18n={translations} linkComponent={LinkComponent}>
         <Provider

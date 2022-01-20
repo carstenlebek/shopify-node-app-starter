@@ -177,8 +177,15 @@ app.prepare().then(async () => {
 
   router.get("(/_next/static/.*)", handleRequest); // Static content is clear
   router.get("/_next/webpack-hmr", handleRequest); // Webpack content is clear
+  router.get("/installation", handleRequest);
   router.get("(.*)", async (ctx) => {
     const shop = ctx.query.shop;
+
+    if (!shop) {
+      console.log("SHOP IS UNDEFINED");
+      ctx.redirect("/installation");
+      return;
+    }
 
     if (useOfflineAccessToken) {
       const isInstalled = await ShopModel.countDocuments({ shop });
