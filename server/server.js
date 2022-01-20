@@ -1,15 +1,17 @@
 import "@babel/polyfill";
-import dotenv from "dotenv";
 import "isomorphic-fetch";
-import createShopifyAuth, { verifyRequest } from "@shopify/koa-shopify-auth";
-import Shopify, { ApiVersion } from "@shopify/shopify-api";
-import Koa from "koa";
-import next from "next";
-import Router from "koa-router";
 
-import mongoose from "mongoose";
-import { webhooks } from "../webhooks/index.js";
+import Shopify, { ApiVersion } from "@shopify/shopify-api";
+import createShopifyAuth, { verifyRequest } from "@shopify/koa-shopify-auth";
+
 import Cryptr from "cryptr";
+import Koa from "koa";
+import Router from "koa-router";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+import next from "next";
+import { webhooks } from "../webhooks/index.js";
+
 const sessionStorage = require("./../utils/sessionStorage.js");
 const SessionModel = require("./../models/SessionModel.js");
 const ShopModel = require("./../models/ShopModel.js");
@@ -181,11 +183,11 @@ app.prepare().then(async () => {
   router.get("(.*)", async (ctx) => {
     const shop = ctx.query.shop;
 
-    if (!shop) {
-      console.log("SHOP IS UNDEFINED");
-      ctx.redirect("/installation");
-      return;
-    }
+    // if (!shop) {
+    //   console.log("SHOP IS UNDEFINED");
+    //   ctx.redirect("/installation");
+    //   return;
+    // }
 
     if (useOfflineAccessToken) {
       const isInstalled = await ShopModel.countDocuments({ shop });

@@ -1,24 +1,26 @@
+import "@shopify/polaris/build/esm/styles.css";
+
 import {
   ApolloClient,
   ApolloProvider,
   InMemoryCache,
   createHttpLink,
 } from "@apollo/client";
-import App from "next/app";
-import { AppProvider } from "@shopify/polaris";
-import { Provider, useAppBridge } from "@shopify/app-bridge-react";
-import { authenticatedFetch } from "@shopify/app-bridge-utils";
-import { Redirect } from "@shopify/app-bridge/actions";
-import "@shopify/polaris/build/esm/styles.css";
-import translations from "@shopify/polaris/locales/en.json";
-import RoutePropagator from "../utils/routepropagator";
 import { AppContext, useAppContext } from "../context/context";
-import Link from "next/link";
-import AppLoader from "../components/AppLoader";
+import { Provider, useAppBridge } from "@shopify/app-bridge-react";
 import {
   relayPaginationMerge,
   relayPaginationRead,
 } from "../utils/relayPagination";
+
+import App from "next/app";
+import AppLoader from "../components/AppLoader";
+import { AppProvider } from "@shopify/polaris";
+import Link from "next/link";
+import { Redirect } from "@shopify/app-bridge/actions";
+import RoutePropagator from "../utils/routepropagator";
+import { authenticatedFetch } from "@shopify/app-bridge-utils";
+import translations from "@shopify/polaris/locales/en.json";
 
 function userLoggedInFetch(app) {
   const fetchFunction = authenticatedFetch(app);
@@ -119,12 +121,12 @@ class MyApp extends App {
   render() {
     const { Component, pageProps, host } = this.props;
 
-    if (!host)
-      return (
-        <AppProvider i18n={translations}>
-          <Component {...pageProps} />
-        </AppProvider>
-      );
+    // if (!host)
+    //   return (
+    //     <AppProvider i18n={translations}>
+    //       <Component {...pageProps} />
+    //     </AppProvider>
+    //   );
 
     return (
       <AppProvider i18n={translations} linkComponent={LinkComponent}>
