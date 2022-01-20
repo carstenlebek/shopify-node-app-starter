@@ -1,6 +1,3 @@
-import { useMutation, useQuery } from "@apollo/client";
-import { useAppBridge } from "@shopify/app-bridge-react";
-import { Redirect } from "@shopify/app-bridge/actions";
 import {
   Card,
   Layout,
@@ -14,9 +11,13 @@ import {
   appSubscriptionCancel,
   appSubscriptionCreate,
 } from "../billing/mutations";
+import { useMutation, useQuery } from "@apollo/client";
+
+import { Redirect } from "@shopify/app-bridge/actions";
 import { getActiveSubscriptions } from "../billing/queries";
-import { useAppContext } from "../context/context";
 import { returnURlBuilder } from "../utils/returnUrlBuilder";
+import { useAppBridge } from "@shopify/app-bridge-react";
+import { useAppContext } from "../context/context";
 
 export default function Subscription() {
   const { appContext } = useAppContext();
@@ -69,7 +70,7 @@ export default function Subscription() {
   };
 
   return (
-    <Page title="Subscriptions">
+    <Page title="Subscriptions" breadcrumbs={[{ content: "Back", url: "/" }]}>
       <Layout sectioned>
         <Card
           sectioned
