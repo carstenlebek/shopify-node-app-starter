@@ -1,4 +1,5 @@
 import { Heading, Spinner, Stack } from "@shopify/polaris";
+
 import React from "react";
 
 export default function AppLoader() {

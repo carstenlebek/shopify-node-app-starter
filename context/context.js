@@ -1,7 +1,8 @@
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { gql, useQuery } from "@apollo/client";
-import { useAppBridge } from "@shopify/app-bridge-react";
-import { createContext, useContext, useState, useMemo, useEffect } from "react";
+
 import exampleFetch from "../utils/exampleFetch";
+import { useAppBridge } from "@shopify/app-bridge-react";
 
 const QUERY = gql`
   query {

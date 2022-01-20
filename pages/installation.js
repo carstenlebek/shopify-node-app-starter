@@ -1,5 +1,5 @@
+import { Button, Card, FormLayout, Page, TextField } from "@shopify/polaris";
 import React, { useState } from "react";
-import { Card, Page, Button, TextField, FormLayout } from "@shopify/polaris";
 
 export default function Installation() {
   const [shop, setShop] = useState("");
