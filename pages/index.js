@@ -1,5 +1,7 @@
-import { Card, Page, Stack, TextContainer } from "@shopify/polaris";
+import { Button, Card, Page, Stack, TextContainer } from "@shopify/polaris";
+
 import AppLoader from "../components/AppLoader";
+import Link from "next/link";
 import { useAppContext } from "../context/context";
 
 const Index = () => {
@@ -32,6 +34,11 @@ const Index = () => {
           <p>{accessToken}</p>
           <p>{scope}</p>
         </Card>
+        <Link href="/pagination">
+          <Button fullWidth primary>
+            Pagination Demo
+          </Button>
+        </Link>
       </Stack>
     </Page>
   );

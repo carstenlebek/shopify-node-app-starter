@@ -15,6 +15,10 @@ import RoutePropagator from "../utils/routepropagator";
 import { AppContext, useAppContext } from "../context/context";
 import Link from "next/link";
 import AppLoader from "../components/AppLoader";
+import {
+  relayPaginationMerge,
+  relayPaginationRead,
+} from "../utils/relayPagination";
 
 function userLoggedInFetch(app) {
   const fetchFunction = authenticatedFetch(app);
@@ -41,8 +45,22 @@ function userLoggedInFetch(app) {
 function MyProvider(props) {
   const app = useAppBridge();
 
+  // Add type policies to the cache
+
   const client = new ApolloClient({
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+      typePolicies: {
+        Query: {
+          fields: {
+            productVariants: {
+              keyArgs: false,
+              merge: relayPaginationMerge,
+              read: relayPaginationRead,
+            },
+          },
+        },
+      },
+    }),
     link: new createHttpLink({
       credentials: "include",
       fetch: userLoggedInFetch(app),
