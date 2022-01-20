@@ -3,13 +3,11 @@ import AppLoader from "../components/AppLoader";
 import { useAppContext } from "../context/context";
 
 const Index = () => {
-  const { appContext, loading } = useAppContext();
+  const { appContext } = useAppContext();
 
   const { name, myshopifyDomain, email } = appContext.shop;
 
   const { id, shop, state, isOnline, accessToken, scope } = appContext.session;
-
-  if (loading) return <AppLoader />;
 
   return (
     <Page

@@ -12,8 +12,9 @@ import { Redirect } from "@shopify/app-bridge/actions";
 import "@shopify/polaris/build/esm/styles.css";
 import translations from "@shopify/polaris/locales/en.json";
 import RoutePropagator from "../utils/routepropagator";
-import { AppContext } from "../context/context";
+import { AppContext, useAppContext } from "../context/context";
 import Link from "next/link";
+import AppLoader from "../components/AppLoader";
 
 function userLoggedInFetch(app) {
   const fetchFunction = authenticatedFetch(app);
@@ -51,15 +52,23 @@ function MyProvider(props) {
     }),
   });
 
-  const Component = props.Component;
-
   return (
     <ApolloProvider client={client}>
       <AppContext host={props.host}>
-        <Component {...props} />
+        <AppInitializer {...props} />
       </AppContext>
     </ApolloProvider>
   );
+}
+
+function AppInitializer(props) {
+  const { loading } = useAppContext();
+
+  if (loading) return <AppLoader />;
+
+  const Component = props.Component;
+
+  return <Component {...props} />;
 }
 
 const IS_EXTERNAL_LINK_REGEX = /^(?:[a-z][a-z\d+.-]*:|\/\/)/;
