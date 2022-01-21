@@ -47,7 +47,7 @@ function userLoggedInFetch(app) {
 function MyProvider(props) {
   const app = useAppBridge();
 
-  // * Add type policies to Apollo Client
+  // * Add type policies to Apollo Client like in the following example.
 
   const client = new ApolloClient({
     cache: new InMemoryCache({
@@ -94,9 +94,9 @@ function AppInitializer(props) {
 const IS_EXTERNAL_LINK_REGEX = /^(?:[a-z][a-z\d+.-]*:|\/\/)/;
 
 function LinkComponent({ children, url = "", external, ref, ...rest }) {
-  // The Link component evaluates all 'a' tags
+  // * The Link component evaluates all 'a' tags
 
-  // If the 'a' tags href is an external url, everything stays the same
+  // * If the 'a' tags href is an external url, everything stays the same
 
   if (external || IS_EXTERNAL_LINK_REGEX.test(url)) {
     rest.target = "_blank";
@@ -108,7 +108,7 @@ function LinkComponent({ children, url = "", external, ref, ...rest }) {
     );
   }
 
-  // If the href is a relative path next/link will be used for routing
+  // * If the href is a relative path next/link will be used for routing
 
   return (
     <Link href={url}>
@@ -120,6 +120,8 @@ function LinkComponent({ children, url = "", external, ref, ...rest }) {
 class MyApp extends App {
   render() {
     const { Component, pageProps, host } = this.props;
+
+    // TODO: Find a way to display an installation page
 
     // if (!host)
     //   return (
