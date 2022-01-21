@@ -14,6 +14,9 @@ import React, { useEffect, useState } from "react";
 import { GET_PRODUCT_VARIANTS } from "../pagination/queries/GET_PRODUCT_VARIANTS";
 import { useQuery } from "@apollo/client";
 
+// * To use the relay Pagination, you have to add type policies
+// * of the resources you want to fetch to the Apollo Client in _app.js
+
 export default function PaginationExample() {
   // * Set results per page
   const resultsPerPage = 5;
@@ -27,14 +30,26 @@ export default function PaginationExample() {
   });
 
   // * Start initial query
-  const { data, loading, fetchMore } = useQuery(GET_PRODUCT_VARIANTS, {
-    variables: queryVariables,
-    notifyOnNetworkStatusChange: true,
-  });
+  const { data, loading, fetchMore, networkStatus, previousData } = useQuery(
+    GET_PRODUCT_VARIANTS,
+    {
+      variables: queryVariables,
+      notifyOnNetworkStatusChange: true,
+    }
+  );
 
   // *  Prefetch next page for a better user experience
   // ! Quick page navigation can lead to API throttling
   useEffect(() => {
+    // * Only set query data as display data,
+    // * if the initial query is loading or
+    // * the query is done.
+    if (
+      data?.productVariants.edges.length > 0 &&
+      (networkStatus === 1 || networkStatus === 7)
+    ) {
+      setDisplayData(data);
+    }
     if (data?.productVariants?.edges) {
       fetchMore({
         variables: {
@@ -46,6 +61,11 @@ export default function PaginationExample() {
       });
     }
   }, [data]);
+
+  // * Handle data in state, to prevent an empty list
+  const [displayData, setDisplayData] = useState({
+    productVariants: { edges: [] },
+  });
 
   return (
     <Page title="Pagination Demo" breadcrumbs={[{ content: "Back", url: "/" }]}>
@@ -64,7 +84,16 @@ export default function PaginationExample() {
           <Card>
             <IndexTable
               resourceName={{ singular: "variant", plural: "variants" }}
-              itemCount={data ? data.productVariants.edges.length : 0}
+              // * Set itemCount to 1 while loading to prevent empty state
+              itemCount={
+                networkStatus < 7
+                  ? 1
+                  : data && loading
+                  ? 1
+                  : data
+                  ? data.productVariants.edges.length
+                  : 1
+              }
               headings={[
                 { title: "Product image", hidden: true },
                 { title: "Product" },
@@ -76,7 +105,7 @@ export default function PaginationExample() {
               loading={loading}
             >
               {data?.productVariants &&
-                data.productVariants.edges.map((variant) => {
+                displayData.productVariants.edges.map((variant) => {
                   const {
                     id,
                     sku,
@@ -143,7 +172,7 @@ export default function PaginationExample() {
                       variables: {
                         first: null,
                         after: null,
-                        last: 5,
+                        last: resultsPerPage,
                         before: data.productVariants.edges[0].cursor,
                       },
                     });
@@ -154,7 +183,7 @@ export default function PaginationExample() {
                       let obj = { ...prev };
                       obj.first = null;
                       obj.after = null;
-                      obj.last = 5;
+                      obj.last = resultsPerPage;
                       obj.before = data.productVariants.edges[0].cursor;
                       return obj;
                     });
@@ -164,7 +193,7 @@ export default function PaginationExample() {
                     // * The next page is already prefetched. Navigation should be quick and responsive
                     fetchMore({
                       variables: {
-                        first: 5,
+                        first: resultsPerPage,
                         after: data.productVariants.edges.at(-1).cursor,
                         last: null,
                         before: null,
@@ -175,7 +204,7 @@ export default function PaginationExample() {
                     // ! If the variables are not changed, data will not change
                     setQueryVariables((prev) => {
                       let obj = { ...prev };
-                      obj.first = 5;
+                      obj.first = resultsPerPage;
                       obj.after = data.productVariants.edges.at(-1).cursor;
                       obj.last = null;
                       obj.before = null;
