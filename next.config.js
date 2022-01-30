@@ -51,7 +51,7 @@ module.exports = {
     return [
       {
         source: "/api/:path*",
-        destination: `${host}/api/:path*`,
+        destination: `https://www.${host}/api/:path*`,
       },
     ];
   },
