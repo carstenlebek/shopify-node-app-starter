@@ -1,6 +1,7 @@
-import { QueryKey, useQuery } from 'react-query';
+import { Query, QueryKey, UseQueryResult, useQuery } from 'react-query';
 
 import { GraphQLClient } from 'graphql-request';
+import { ProductConnection } from 'graphql/generated';
 import { Variables } from 'graphql-request';
 import { useAuthenticatedFetch } from './useAuthenticatedFetch';
 
@@ -12,19 +13,22 @@ import { useAuthenticatedFetch } from './useAuthenticatedFetch';
  *
  * @returns {Array} An array containing the query data, loading state, and error state.
  */
-export const useShopifyQuery = ({
+export const useShopifyQuery = <T>({
 	key,
 	query,
 	variables,
 }: {
 	key: QueryKey;
 	query: string;
-	variables: Variables;
-}) => {
+	variables?: Variables;
+}): { data: T } => {
 	const authenticatedFetch = useAuthenticatedFetch();
 	const graphQLClient = new GraphQLClient('/api/graphql', {
 		fetch: authenticatedFetch,
 	});
 
-	return useQuery(key, async () => graphQLClient.rawRequest(query, variables));
+	return useQuery(
+		key,
+		async () => await graphQLClient.rawRequest(query, variables)
+	);
 };
