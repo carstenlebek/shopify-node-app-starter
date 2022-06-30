@@ -1,20 +1,36 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+	"compilerOptions": {
+		"target": "es5",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": false,
+		"forceConsistentCasingInFileNames": true,
+		"noEmit": true,
+		"incremental": true,
+		"esModuleInterop": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"baseUrl": ".",
+		"paths": {
+			"@components/*": ["./src/components/*"],
+			"@helpers/*": ["./src/helpers/*"],
+			"@types": ["./src/@types/index.d.ts"],
+			"@middleware/*": ["./src/middleware/*"],
+			"@models/*": ["./src/lib/models/*"],
+			"@lib/*": ["./src/lib/*"],
+			"@styles/*": ["./src/styles/*"]
+		}
+	},
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".d.ts",
+		"src/middleware.ts"
+	],
+	"exclude": ["node_modules"]
 }
