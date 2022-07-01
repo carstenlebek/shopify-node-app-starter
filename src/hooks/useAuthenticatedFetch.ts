@@ -21,7 +21,6 @@ export function useAuthenticatedFetch() {
 
 	return async (uri: string, options: RequestInit) => {
 		const response = await fetchFunction(uri, options);
-		response.headers.forEach((h) => console.log(h));
 		checkHeadersForReauthorization(response.headers, app);
 		return response;
 	};
