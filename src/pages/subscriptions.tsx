@@ -90,6 +90,7 @@ export default function Subscriptions() {
 				<Layout.AnnotatedSection title='Active Subscription'>
 					<Card>
 						<IndexTable
+							loading={isLoading}
 							emptyState={
 								<EmptyState
 									fullWidth
