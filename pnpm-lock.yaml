@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@graphql-codegen/cli': ^2.6.3
+  '@graphql-codegen/schema-ast': ^2.4.1
   '@graphql-codegen/typescript': ^2.5.1
   '@graphql-codegen/typescript-operations': ^2.4.2
   '@graphql-codegen/typescript-react-query': ^3.5.14
@@ -33,6 +34,7 @@ specifiers:
   typescript: 4.7.4
 
 dependencies:
+  '@graphql-codegen/schema-ast': 2.4.1_graphql@16.5.0
   '@graphql-codegen/typescript-operations': 2.4.2_graphql@16.5.0
   '@graphql-codegen/typescript-react-query': 3.5.14_graphql@16.5.0
   '@shopify/app-bridge': 3.1.1
