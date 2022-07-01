@@ -1,28 +1,8 @@
 import { Card, Layout, Page, TextContainer, TextStyle } from '@shopify/polaris';
 
-import { GetProductsQuery } from '@graphql/generated';
 import Head from 'next/head';
-import { gql } from 'graphql-request';
-import { useShopifyQuery } from 'src/hooks';
-
-const PRODUCTS_QUERY = gql`
-	query getProducts {
-		products(first: 10) {
-			nodes {
-				id
-				title
-			}
-		}
-	}
-`;
 
 export default function AppHome() {
-	const { data } = useShopifyQuery<GetProductsQuery>({
-		key: 'products',
-		query: PRODUCTS_QUERY,
-	});
-	console.log('🚀 ~ file: index.tsx ~ line 26 ~ AppHome ~ data', data);
-
 	return (
 		<>
 			<Head>
@@ -47,7 +27,7 @@ export default function AppHome() {
 							title='Get data'
 							actions={[
 								{
-									content: 'Get data',
+									content: 'Demo',
 									url: '/get-data',
 								},
 							]}
@@ -66,7 +46,7 @@ export default function AppHome() {
 							title='Manage Billing'
 							actions={[
 								{
-									content: 'Manage Billing',
+									content: 'Demo',
 									url: '/subscriptions',
 								},
 							]}
@@ -104,7 +84,7 @@ export default function AppHome() {
 							title='Deploy'
 							actions={[
 								{
-									content: 'Deploy',
+									content: 'Vercel',
 									url: 'https://vercel.com?utm_source=next-shopify-app&utm_medium=default-template&utm_campaign=next-shopify-app',
 								},
 							]}
