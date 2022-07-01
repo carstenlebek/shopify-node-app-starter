@@ -27,6 +27,11 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
+
+# graphql schema and types
+/src/graphql/generated.ts
+/src/graphql/schema.graphql
 
 # vercel
 .vercel
