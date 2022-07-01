@@ -1,0 +1,13 @@
+watch: true
+schema: 'src/graphql/schema.graphql'
+documents: 'src/**/!(*.d).{ts,tsx,graphql}'
+generates:
+  ./src/graphql/generated.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-query
+    config:
+      fetcher:
+        func: './../hooks/useShopifyApi#useShopifyApi'
+        isReactHook: true
