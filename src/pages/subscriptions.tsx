@@ -1,169 +1,145 @@
-import styles from '@styles/Global.module.css'
-import {gql, useLazyQuery, useMutation} from "@apollo/client";
-import {useState} from "react";
-import Link from "next/link";
+import {
+	Card,
+	EmptyState,
+	IndexTable,
+	Layout,
+	Page,
+	Stack,
+	TextStyle,
+} from '@shopify/polaris';
+import {
+	useCreateSubscriptionMutation,
+	useGetActiveSubscriptionsQuery,
+} from '@graphql/generated';
 
-const CREATE_SUBSCRIPTION = gql`
-    mutation CreateSubscription(
-        $returnString: URL!
-        $planName: String!
-        $planPrice: Decimal!
-    ) {
-        appSubscriptionCreate(
-            name: $planName
-            returnUrl: $returnString
-            test: true
-            lineItems: [
-                {
-                    plan: {
-                        appRecurringPricingDetails: {
-                            price: { amount: $planPrice, currencyCode: USD }
-                        }
-                    }
-                }
-            ]
-        ) {
-            userErrors {
-                field
-                message
-            }
-            confirmationUrl
-            appSubscription {
-                id
-                status
-            }
-        }
-    }
-`;
-
-const GET_ACTIVE_SUBSCRIPTIONS = gql`
-    {
-        appInstallation {
-            activeSubscriptions {
-                name
-                status
-                lineItems {
-                    plan {
-                        pricingDetails {
-                            ... on AppRecurringPricing {
-                                __typename
-                                price {
-                                    amount
-                                    currencyCode
-                                }
-                                interval
-                            }
-                        }
-                    }
-                }
-                test
-            }
-        }
-    }
-`;
+import { Redirect } from '@shopify/app-bridge/actions';
+import { useAppBridge } from '@shopify/app-bridge-react';
 
 export default function Subscriptions() {
+	const app = useAppBridge();
+	const redirect = Redirect.create(app);
+	const returnUrl = `${process.env.HOST}/subscriptions`;
 
-    const [createSubscriptionMutation] = useMutation(CREATE_SUBSCRIPTION, {
-        onCompleted: (data) => {
-            console.log(data)
-            if (data.appSubscriptionCreate.confirmationUrl) {
-                window.location = data.appSubscriptionCreate.confirmationUrl
-            }
-        }
-    })
+	const { mutateAsync: createSubscription } = useCreateSubscriptionMutation({
+		onSuccess: (d) => {
+			if (d.appSubscriptionCreate.confirmationUrl) {
+				redirect.dispatch(
+					Redirect.Action.REMOTE,
+					d.appSubscriptionCreate.confirmationUrl
+				);
+			}
+		},
+	});
 
-    const returnString = `${process.env.HOST}/app/subscriptions`
+	const { data, isLoading } = useGetActiveSubscriptionsQuery(
+		{},
+		{
+			onSuccess: (d) => console.log(d),
+		}
+	);
 
-    const createSubscription = async (name, price) => {
-        await createSubscriptionMutation({
-            variables: {
-                returnString, planName: name, planPrice: price
-            }
-        })
-    }
-
-    const [activeSubscriptions, setActiveSubscriptions] = useState([])
-
-    const [getActiveSubscriptions] = useLazyQuery(GET_ACTIVE_SUBSCRIPTIONS, {
-        onCompleted: (data) => setActiveSubscriptions(data.appInstallation.activeSubscriptions),
-        fetchPolicy: "network-only"
-    })
-
-    return (
-        <div className={styles.container}>
-            <Link href={"/app"}>
-                <div className={styles.back}> &larr;</div>
-            </Link>
-            <main className={styles.main}>
-                <h1 className={styles.title}>
-                    Manage Subscriptions
-                </h1>
-                <p className={styles.description}>
-                    View the examples in{' '}
-                    <code className={styles.code}>pages/app/subscriptions.js</code>
-                </p>
-                <h2>Create a new subscription</h2>
-                <div className={styles.grid}>
-                    <div className={styles.card}>
-                        <h2>Starter</h2>
-                        <p>Create a $10 per month subscription.</p>
-                        <button
-                            className={styles.button}
-                            onClick={() => createSubscription("Starter", 10)}>
-                            Subscribe
-                        </button>
-                    </div>
-                    <div className={styles.card}>
-                        <h2>Advanced</h2>
-                        <p>Create a $30 per month subscription.</p>
-                        <button
-                            className={styles.button}
-                            onClick={() => createSubscription("Advanced", 30)}>
-                            Subscribe
-                        </button>
-                    </div>
-                    <div className={styles.card}>
-                        <h2>Professional</h2>
-                        <p>Create a $70 per month subscription.</p>
-                        <button
-                            className={styles.button}
-                            onClick={() => createSubscription("Professional", 70)}>
-                            Subscribe
-                        </button>
-                    </div>
-                </div>
-                <h2>Get active subscriptions</h2>
-                <div className={styles.card}>
-                    <h2>Active Subscriptions</h2>
-                    <button
-                        className={styles.button}
-                        onClick={() => getActiveSubscriptions()}>
-                        Fetch
-                    </button>
-                    {activeSubscriptions.length > 0 && (
-                        <table className={styles.table}>
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Status</th>
-                                <th>Price</th>
-                            </tr>
-                            </thead>
-                            {activeSubscriptions.map(sub => {
-                                const price = sub.lineItems[0].plan.pricingDetails.price
-                                return (<tr key={sub.name}>
-                                    <td>{sub.name}</td>
-                                    <td>{sub.status}</td>
-                                    <td>{parseFloat(price.amount).toLocaleString('en-US', {
-                                        style: "currency", currency: price.currencyCode
-                                    })}</td>
-                                </tr>)
-                            })}
-                        </table>
-                    )}
-                </div>
-            </main>
-        </div>
-    )
+	return (
+		<Page breadcrumbs={[{ content: 'Home', url: '/' }]} title='Manage billing'>
+			<Layout>
+				<Layout.AnnotatedSection
+					title='Create Subscription'
+					description='Subscribe merchants to your apps subscripion plans.'
+				>
+					<Stack vertical>
+						<Card
+							sectioned
+							title='Subscribe to 10$ Starter plan'
+							primaryFooterAction={{
+								content: 'Subscribe',
+								onAction: () =>
+									createSubscription({
+										returnUrl,
+										planName: 'Starter',
+										planPrice: 10,
+									}),
+							}}
+						/>
+						<Card
+							sectioned
+							title='Subscribe to 30$ Premium plan'
+							primaryFooterAction={{
+								content: 'Subscribe',
+								onAction: () =>
+									createSubscription({
+										returnUrl,
+										planName: 'Premium',
+										planPrice: 30,
+									}),
+							}}
+						/>
+						<Card
+							sectioned
+							title='Subscribe to 90$ Plus plan'
+							primaryFooterAction={{
+								content: 'Subscribe',
+								onAction: () =>
+									createSubscription({
+										returnUrl,
+										planName: 'Plus',
+										planPrice: 90,
+									}),
+							}}
+						/>
+					</Stack>
+				</Layout.AnnotatedSection>
+				<Layout.AnnotatedSection title='Active Subscription'>
+					<Card>
+						<IndexTable
+							emptyState={
+								<EmptyState
+									fullWidth
+									heading='No active subscriptions'
+									image='/undraw_make_it_rain_iwk4.png'
+								></EmptyState>
+							}
+							resourceName={{
+								singular: 'subscription',
+								plural: 'subscriptions',
+							}}
+							itemCount={
+								data ? data.appInstallation.activeSubscriptions.length : 0
+							}
+							headings={[
+								{ title: 'Planname' },
+								{ title: 'Status' },
+								{ title: 'Test' },
+								{ title: 'Amount' },
+							]}
+							selectable={false}
+						>
+							{data?.appInstallation.activeSubscriptions.map(
+								({ name, status, test, lineItems }, index) => (
+									<IndexTable.Row
+										id={index.toString()}
+										key={index}
+										position={index}
+									>
+										<IndexTable.Cell>
+											<TextStyle variation='strong'>{name}</TextStyle>
+										</IndexTable.Cell>
+										<IndexTable.Cell>{status}</IndexTable.Cell>
+										<IndexTable.Cell>{test}</IndexTable.Cell>
+										<IndexTable.Cell>
+											{parseFloat(
+												lineItems[0].plan.pricingDetails.price.amount
+											).toLocaleString('en-US', {
+												style: 'currency',
+												currency:
+													lineItems[0].plan.pricingDetails.price.currencyCode,
+											})}
+										</IndexTable.Cell>
+									</IndexTable.Row>
+								)
+							)}
+						</IndexTable>
+					</Card>
+				</Layout.AnnotatedSection>
+			</Layout>
+		</Page>
+	);
 }

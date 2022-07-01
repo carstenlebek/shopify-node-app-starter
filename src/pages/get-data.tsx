@@ -1,16 +1,8 @@
 import { Card, IndexTable, Layout, Page, TextStyle } from '@shopify/polaris';
-import { CurrencyCode, GetProductsQuery } from '@graphql/generated';
-
-import { GET_PRODUCTS } from '@graphql/queries/GET_PRODUCTS';
-import Link from 'next/link';
-import styles from 'src/styles/Global.module.css';
-import { useShopifyQuery } from 'src/hooks';
-import { useState } from 'react';
+import { CurrencyCode, useGetProductsQuery } from '@graphql/generated';
 
 export default function GetData() {
-	const { data, isLoading } = useShopifyQuery<GetProductsQuery>(
-		'getProducts',
-		GET_PRODUCTS,
+	const { data, isLoading } = useGetProductsQuery(
 		{
 			first: 10,
 		}
@@ -36,7 +28,7 @@ export default function GetData() {
 			currency: currencyCode,
 		});
 
-	const rowMarkup = data?.data.products.nodes.map(
+	const rowMarkup = data?.products.nodes.map(
 		(
 			{ id, title, priceRangeV2: { minVariantPrice, maxVariantPrice } },
 			index
@@ -55,13 +47,13 @@ export default function GetData() {
 	);
 
 	return (
-		<Page title='Get data'>
+		<Page breadcrumbs={[{ content: 'Home', url: '/' }]} title='Get data'>
 			<Layout>
 				<Layout.AnnotatedSection title='Get data from the Admin API'>
 					<Card>
 						<IndexTable
 							resourceName={{ singular: 'product', plural: 'products' }}
-							itemCount={data ? data.data.products.nodes.length : 0}
+							itemCount={data ? data.products.nodes.length : 0}
 							headings={[{ title: 'Name' }, { title: 'Price range' }]}
 							selectable={false}
 							loading={isLoading}
