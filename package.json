@@ -10,7 +10,6 @@
 		"generate": "graphql-codegen"
 	},
 	"dependencies": {
-		"@apollo/client": "^3.6.9",
 		"@graphql-codegen/typescript-operations": "^2.4.2",
 		"@graphql-codegen/typescript-react-query": "^3.5.14",
 		"@shopify/app-bridge": "^3.1.1",
