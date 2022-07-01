@@ -7,9 +7,11 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"generate": "graphql-codegen"
+		"get-schema": "graphql-codegen --config ./get-schema.yml",
+		"generate": "graphql-codegen --config ./generate-hooks.yml"
 	},
 	"dependencies": {
+		"@graphql-codegen/schema-ast": "^2.4.1",
 		"@graphql-codegen/typescript-operations": "^2.4.2",
 		"@graphql-codegen/typescript-react-query": "^3.5.14",
 		"@shopify/app-bridge": "^3.1.1",
