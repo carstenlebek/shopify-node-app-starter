@@ -43,7 +43,6 @@ export default async function loadCurrentSession(
 	request: NextRequest,
 	isOnline = true
 ): Promise<SessionInterface | undefined> {
-	// Context.throwIfUninitialized();
 
 	const sessionId = getCurrentSessionId(request, isOnline);
 	if (!sessionId) {
