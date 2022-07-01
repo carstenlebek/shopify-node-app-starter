@@ -1,20 +1,34 @@
-import { Card, IndexTable, Layout, Page, TextStyle } from '@shopify/polaris';
+import {
+	Button,
+	Card,
+	DisplayText,
+	IndexTable,
+	Layout,
+	Page,
+	PageActions,
+	Spinner,
+	Stack,
+	TextField,
+	TextStyle,
+} from '@shopify/polaris';
 import { CurrencyCode, useGetProductsQuery } from '@graphql/generated';
+import { useCallback, useState } from 'react';
+
+import { trpc } from '@lib/utils/trpc';
 
 export default function GetData() {
-	const { data, isLoading } = useGetProductsQuery(
-		{
-			first: 10,
-		}
-	);
+	const { data, isLoading } = useGetProductsQuery({
+		first: 10,
+	});
 
-	const getApi = async (e) => {
-		e.preventDefault();
+	const [text, setText] = useState('');
+	const handleChange = useCallback((newValue: string) => setText(newValue), []);
+	const [query, setQuery] = useState('');
 
-		await fetch('/api/hello', {
-			method: 'GET',
-		}).then((r) => r.text());
-	};
+	const { data: trpcData, isLoading: trpcIsLoading } = trpc.useQuery([
+		'hello',
+		{ text: query },
+	]);
 
 	const formatPrice = ({
 		amount,
@@ -62,8 +76,31 @@ export default function GetData() {
 						</IndexTable>
 					</Card>
 				</Layout.AnnotatedSection>
-				<Layout.AnnotatedSection title='Get data from your own API'></Layout.AnnotatedSection>
+				<Layout.AnnotatedSection
+					title='Get data from your own API'
+					description='Write fully typesafe APIs with tRPC.'
+				>
+					<Card sectioned>
+						{trpcIsLoading ? (
+							<Stack alignment='center' distribution='center'>
+								<Spinner size='large' />
+							</Stack>
+						) : (
+							<Stack vertical>
+								<DisplayText>{trpcData?.greeting}</DisplayText>
+								<TextField
+									label='Type your name here and click submit'
+									value={text}
+									onChange={handleChange}
+									autoComplete='off'
+								/>
+								<Button primary onClick={() => setQuery(text)}>Submit</Button>
+							</Stack>
+						)}
+					</Card>
+				</Layout.AnnotatedSection>
 			</Layout>
+			<PageActions />
 		</Page>
 	);
 }
