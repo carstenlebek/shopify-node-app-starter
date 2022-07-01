@@ -27,7 +27,7 @@ export default async function handler(req: ApiRequest, res: NextApiResponse) {
 			}
 		});
 
-		res.redirect(`/api/auth/offline?host=${req.query.host}&shop=${req.query.shop}`);
+		res.redirect(`/?host=${req.query.host}&shop=${req.query.shop}`);
 	} catch (e) {
 		console.warn(e);
 		switch (true) {
