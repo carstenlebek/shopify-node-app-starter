@@ -17,6 +17,7 @@
 		"baseUrl": ".",
 		"paths": {
 			"@components/*": ["./src/components/*"],
+			"@graphql/*": ["./src/graphql/*"],
 			"@helpers/*": ["./src/helpers/*"],
 			"@types": ["./src/@types/index.d.ts"],
 			"@middleware/*": ["./src/middleware/*"],
@@ -29,6 +30,7 @@
 		"next-env.d.ts",
 		"**/*.ts",
 		"**/*.tsx",
+		".graphql",
 		".d.ts",
 		"src/middleware.ts"
 	],
