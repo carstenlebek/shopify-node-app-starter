@@ -24,38 +24,23 @@ export function AppBridgeProvider({ children }) {
 
 	const query = Object.fromEntries(urlParams);
 
-	console.log(query);
-
-	// const [browserWindow, setBrowserWindow] = useState({});
-
-	// useEffect(() => {
-	// 	if (typeof window !== undefined) {
-	// 		setBrowserWindow(window);
-	// 	}
-	// }, []);
-	// const location = useLocation();
-	// const navigate = useNavigate();
-	// const history = useMemo(
-	//   () => ({
-	//     replace: (path) => {
-	//       navigate(path, { replace: true });
-	//     },
-	//   }),
-	//   [navigate]
-	// );
-
-	// const routerConfig = useMemo(
-	//   () => ({ history, location }),
-	//   [history, location]
-	// );
-
 	// The host may be present initially, but later removed by navigation.
 	// By caching this in state, we ensure that the host is never lost.
 	// During the lifecycle of an app, these values should never be updated anyway.
 	// Using state in this way is preferable to useMemo.
 	// See: https://stackoverflow.com/questions/60482318/version-of-usememo-for-caching-a-value-that-will-never-change
 	const [appBridgeConfig] = useState(() => {
-		const host = query.host;
+		let host = query.host;
+		if (typeof window !== 'undefined') {
+			if (host) {
+				window.sessionStorage.setItem('__SHOPIFY_DEV_HOST', host);
+			} else {
+				let h = window.sessionStorage.getItem('__SHOPIFY_DEV_HOST');
+				if (h) {
+					host = h;
+				}
+			}
+		}
 
 		return {
 			host,
@@ -63,10 +48,6 @@ export function AppBridgeProvider({ children }) {
 			forceRedirect: true,
 		};
 	});
-	console.log(
-		'🚀 ~ file: AppBridgeProvider.tsx ~ line 62 ~ const[appBridgeConfig]=useState ~ appBridgeConfig',
-		appBridgeConfig
-	);
 
 	if (!process.env.SHOPIFY_API_KEY) {
 		return (
