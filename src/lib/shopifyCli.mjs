@@ -80,6 +80,8 @@ export async function updateURLs(apiKey, url) {
 		redir: [
 			`${url}/api/auth`,
 			`${url}/api/auth/callback`,
+			`${url}/api/auth/offline`,
+			`${url}/api/auth/offline-callback`,
 			`${url}/api/auth/toplevel`,
 		],
 	};
