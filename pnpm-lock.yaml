@@ -12,6 +12,10 @@ specifiers:
   '@shopify/cli-kit': ^3.0.25
   '@shopify/polaris': ^9.19.0
   '@shopify/shopify-api': ^3.1.3
+  '@trpc/client': ^9.25.3
+  '@trpc/next': ^9.25.3
+  '@trpc/react': ^9.25.3
+  '@trpc/server': ^9.25.3
   '@types/cookies': ^0.7.7
   '@types/node': 18.0.0
   '@types/react': 18.0.14
@@ -31,7 +35,9 @@ specifiers:
   react: 18.2.0
   react-dom: 18.2.0
   react-query: ^3.39.1
+  superjson: ^1.9.1
   typescript: 4.7.4
+  zod: ^3.17.3
 
 dependencies:
   '@graphql-codegen/schema-ast': 2.4.1_graphql@16.5.0
@@ -43,6 +49,10 @@ dependencies:
   '@shopify/cli-kit': 3.0.25
   '@shopify/polaris': 9.19.0_biqbaboplfbrettd7655fr4n2y
   '@shopify/shopify-api': 3.1.3
+  '@trpc/client': 9.25.3_@trpc+server@9.25.3
+  '@trpc/next': 9.25.3_gjz2vgkn3qadfgugkh65jdpnzq
+  '@trpc/react': 9.25.3_ms3at4dqhndwrpx5xroirjehyy
+  '@trpc/server': 9.25.3
   cookie: 0.5.0
   cookies: 0.8.0
   envfile: 6.17.0
@@ -56,6 +66,8 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-query: 3.39.1_biqbaboplfbrettd7655fr4n2y
+  superjson: 1.9.1
+  zod: 3.17.3
 
 devDependencies:
   '@graphql-codegen/cli': 2.6.3_bd2houww3rfjk53zactamwptje
@@ -1610,6 +1622,58 @@ packages:
     engines: {node: '>= 10'}
     dev: true
 
+  /@trpc/client/9.25.3_@trpc+server@9.25.3:
+    resolution: {integrity: sha512-4R+IK3cCDjoOTwHDyu+uN0bF3mYQI34i6aDNU3D/dJJxcA8PX5f8yb++nnR4RT6oTnu3yiR3PFC4KslvBtyi9w==}
+    peerDependencies:
+      '@trpc/server': 9.25.3
+    dependencies:
+      '@babel/runtime': 7.18.6
+      '@trpc/server': 9.25.3
+    dev: false
+
+  /@trpc/next/9.25.3_gjz2vgkn3qadfgugkh65jdpnzq:
+    resolution: {integrity: sha512-eAhPIinDTUiEgiPjChNIcqaPgwn+rJ8HX374fwff/tZXg5OVr3dA7rur2nYyQUWO8LvdiLfUAbTxgtoEB8SPKw==}
+    peerDependencies:
+      '@trpc/client': 9.25.3
+      '@trpc/react': 9.25.3
+      '@trpc/server': 9.25.3
+      next: '*'
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+      react-query: ^3.37.0 || ^4.0.0-alpha.4
+    dependencies:
+      '@babel/runtime': 7.18.6
+      '@trpc/client': 9.25.3_@trpc+server@9.25.3
+      '@trpc/react': 9.25.3_ms3at4dqhndwrpx5xroirjehyy
+      '@trpc/server': 9.25.3
+      next: 12.2.0_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-query: 3.39.1_biqbaboplfbrettd7655fr4n2y
+      react-ssr-prepass: 1.5.0_react@18.2.0
+    dev: false
+
+  /@trpc/react/9.25.3_ms3at4dqhndwrpx5xroirjehyy:
+    resolution: {integrity: sha512-/StrJS7hKPPn88YaXX+qRU50MeLZxBmPC5BLVyhRtwmbzK25Q0MTzBgQLrjoCpJ/HgXYZEbB5ddiw8f+/WnqIA==}
+    peerDependencies:
+      '@trpc/client': 9.25.3
+      '@trpc/server': 9.25.3
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+      react-query: ^3.37.0 || ^4.0.0-alpha.4
+    dependencies:
+      '@babel/runtime': 7.18.6
+      '@trpc/client': 9.25.3_@trpc+server@9.25.3
+      '@trpc/server': 9.25.3
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-query: 3.39.1_biqbaboplfbrettd7655fr4n2y
+    dev: false
+
+  /@trpc/server/9.25.3:
+    resolution: {integrity: sha512-1LEURCmSGpxx8/0ZtzMpd0hiSB4xGNKJ9DKq6sbPk+bzdACjH9Ujdwca4P6ylxa8HdMel/effwjlCG0Tfx06Lg==}
+    dev: false
+
   /@types/body-parser/1.19.2:
     resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}
     dependencies:
@@ -2676,6 +2740,13 @@ packages:
     dependencies:
       depd: 2.0.0
       keygrip: 1.1.0
+    dev: false
+
+  /copy-anything/3.0.2:
+    resolution: {integrity: sha512-CzATjGXzUQ0EvuvgOCI6A4BGOo2bcVx8B+eC2nF862iv9fopnPQwlrbACakNCHRIJbCSBj+J/9JeDf60k64MkA==}
+    engines: {node: '>=12.13'}
+    dependencies:
+      is-what: 4.1.7
     dev: false
 
   /core-js-pure/3.23.3:
@@ -4440,6 +4511,11 @@ packages:
       call-bind: 1.0.2
     dev: true
 
+  /is-what/4.1.7:
+    resolution: {integrity: sha512-DBVOQNiPKnGMxRMLIYSwERAS5MVY1B7xYiGnpgctsOFvVDz9f9PFXXxMcTOHuoqYp4NK9qFYQaIC1NRRxLMpBQ==}
+    engines: {node: '>=12.13'}
+    dev: false
+
   /is-windows/1.0.2:
     resolution: {integrity: sha512-eXK1UInq2bPmjyX6e3VHIzMLobc4J94i4AWn+Hpq3OU5KkrRC96OAcR3PRJ/pGu6m8TRnBHP9dkXQVsT/COVIA==}
     engines: {node: '>=0.10.0'}
@@ -5999,6 +6075,14 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
+  /react-ssr-prepass/1.5.0_react@18.2.0:
+    resolution: {integrity: sha512-yFNHrlVEReVYKsLI5lF05tZoHveA5pGzjFbFJY/3pOqqjGOmMmqx83N4hIjN2n6E1AOa+eQEUxs3CgRnPmT0RQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /react-transition-group/4.4.2_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-/RNYfRAMlZwDSr6z4zNKV6xu53/e2BuaBbGhbyYIXTrmgu/bGHzmqOs7mJSJBHy9Ud+ApHx3QjrkKSp1pxvlFg==}
     peerDependencies:
@@ -6633,6 +6717,13 @@ packages:
         optional: true
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /superjson/1.9.1:
+    resolution: {integrity: sha512-oT3HA2nPKlU1+5taFgz/HDy+GEaY+CWEbLzaRJVD4gZ7zMVVC4GDNFdgvAZt6/VuIk6D2R7RtPAiCHwmdzlMmg==}
+    engines: {node: '>=10'}
+    dependencies:
+      copy-anything: 3.0.2
     dev: false
 
   /supports-color/2.0.0:

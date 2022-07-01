@@ -3,7 +3,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import verifyRequest from '@middleware/verify-request';
 
 export async function middleware(req: NextRequest) {
-	if (req.nextUrl.pathname.startsWith('/api/auth')) {
+	if (
+		req.nextUrl.pathname.startsWith('/api/auth') ||
+		req.nextUrl.pathname.startsWith('/api/trpc')
+	) {
 		return NextResponse.next();
 	}
 
