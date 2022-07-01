@@ -1,7 +1,6 @@
-import { Query, QueryKey, UseQueryResult, useQuery } from 'react-query';
+import { QueryKey, useQuery } from 'react-query';
 
 import { GraphQLClient } from 'graphql-request';
-import { ProductConnection } from 'graphql/generated';
 import { Variables } from 'graphql-request';
 import { useAuthenticatedFetch } from './useAuthenticatedFetch';
 
