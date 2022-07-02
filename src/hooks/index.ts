@@ -1,3 +1,3 @@
-export { useAppQuery } from "./useAppQuery";
-export { useAuthenticatedFetch } from "./useAuthenticatedFetch";
-export { useShopifyApi } from "./useShopifyApi";
+export { useAuthenticatedFetch } from './useAuthenticatedFetch';
+export { useShopifyApi } from './useShopifyApi';
+export { useShopifyTitlebar } from './useShopifyTitlebar';
