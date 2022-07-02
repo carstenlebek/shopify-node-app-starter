@@ -1,9 +1,7 @@
 import { Banner, Layout, Page } from '@shopify/polaris';
 import { useMemo, useState } from 'react';
 
-// import { useLocation, useNavigate } from 'react-router-dom';
 import { Provider } from '@shopify/app-bridge-react';
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 /**
@@ -17,8 +15,6 @@ import { useRouter } from 'next/router';
  */
 export function AppBridgeProvider({ children }) {
 	const router = useRouter();
-
-	console.log(router);
 
 	const urlParams = new URLSearchParams(router.asPath.split('?')[1]);
 
@@ -49,6 +45,19 @@ export function AppBridgeProvider({ children }) {
 		};
 	});
 
+	const history = useMemo(
+		() => ({ replace: (previousRoute: string) => router.push(previousRoute) }),
+		[router.push]
+	);
+
+	const clientRouter = useMemo(
+		() => ({
+			location: router.asPath,
+			history,
+		}),
+		[router.asPath, history]
+	);
+
 	if (!process.env.SHOPIFY_API_KEY) {
 		return (
 			<Page narrowWidth>
@@ -67,5 +76,9 @@ export function AppBridgeProvider({ children }) {
 		);
 	}
 
-	return <Provider config={appBridgeConfig}>{children}</Provider>;
+	return (
+		<Provider router={clientRouter} config={appBridgeConfig}>
+			{children}
+		</Provider>
+	);
 }
