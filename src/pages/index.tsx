@@ -1,13 +1,12 @@
 import { Card, Layout, Page, TextContainer, TextStyle } from '@shopify/polaris';
 
 import Head from 'next/head';
+import { TitleBar } from '@shopify/app-bridge-react';
 import { useAppContext } from '@components/providers/AppContext';
-import { useShopifyTitlebar } from 'src/hooks';
 
 export default function AppHome() {
-	const titleBar = useShopifyTitlebar({ title: 'Dashboard' });
-
 	const { user } = useAppContext();
+
 	return (
 		<>
 			<Head>
@@ -15,6 +14,10 @@ export default function AppHome() {
 				<meta name='description' content='Template built by Carsten Lebek' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
+			<TitleBar
+				title='Dashboard'
+				breadcrumbs={{ content: 'Dashboard', url: '/' }}
+			/>
 
 			<Page
 				title={`Hey ${user?.first_name}! Welcome to your typesafe Next.js Shopify App!`}

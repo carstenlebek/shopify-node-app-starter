@@ -14,15 +14,10 @@ import {
 import { CurrencyCode, useGetProductsQuery } from '@graphql/generated';
 import { useCallback, useState } from 'react';
 
+import { TitleBar } from '@shopify/app-bridge-react';
 import { trpc } from '@lib/utils/trpc';
-import { useShopifyTitlebar } from 'src/hooks';
 
 export default function GetData() {
-	const titleBar = useShopifyTitlebar({
-		title: 'Get data',
-		breadCrumbs: { label: 'Dashboard', path: '/' },
-	});
-
 	const { data, isLoading } = useGetProductsQuery({
 		first: 10,
 	});
@@ -67,7 +62,11 @@ export default function GetData() {
 	);
 
 	return (
-		<Page breadcrumbs={[{ content: 'Home', url: '/' }]} title='Get data'>
+		<Page breadcrumbs={[{ content: 'Home', url: '/' }]} title='Get Data'>
+			<TitleBar
+				title='Get Data'
+				breadcrumbs={{ content: 'Dashboard', url: '/' }}
+			/>
 			<Layout>
 				<Layout.AnnotatedSection
 					title='Get data from the Admin API'
