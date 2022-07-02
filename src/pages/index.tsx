@@ -1,8 +1,13 @@
 import { Card, Layout, Page, TextContainer, TextStyle } from '@shopify/polaris';
 
 import Head from 'next/head';
+import { useAppContext } from '@components/providers/AppContext';
+import { useShopifyTitlebar } from 'src/hooks';
 
 export default function AppHome() {
+	const titleBar = useShopifyTitlebar({ title: 'Dashboard' });
+
+	const { user } = useAppContext();
 	return (
 		<>
 			<Head>
@@ -11,7 +16,9 @@ export default function AppHome() {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 
-			<Page title='Welcome to your Next.js Shopify App!'>
+			<Page
+				title={`Hey ${user?.first_name}! Welcome to your typesafe Next.js Shopify App!`}
+			>
 				<Layout>
 					<Layout.Section>
 						<TextContainer>
@@ -69,13 +76,34 @@ export default function AppHome() {
 									},
 								]}
 								title='Next.js'
-							>
-								<TextContainer>
-									<p>
-										Find in-depth information about Next.js features and API.
-									</p>
-								</TextContainer>
-							</Card.Section>
+							></Card.Section>
+							<Card.Section
+								actions={[
+									{
+										content: 'Documentation',
+										url: 'https://shopify.dev/apps/tools/app-bridge',
+									},
+								]}
+								title='Shopify App Bridge'
+							></Card.Section>
+							<Card.Section
+								actions={[
+									{
+										content: 'Documentation',
+										url: 'https://www.graphql-code-generator.com/docs/getting-started',
+									},
+								]}
+								title='graphql-codegen'
+							></Card.Section>
+							<Card.Section
+								actions={[
+									{
+										content: 'Documentation',
+										url: 'https://trpc.io/docs',
+									},
+								]}
+								title='tRPC'
+							></Card.Section>
 						</Card>
 					</Layout.Section>
 					<Layout.Section oneHalf>
