@@ -1,3 +1,4 @@
+import { TRPCError } from '@trpc/server';
 /**
  * This file contains the root router of your tRPC-backend
  */
@@ -12,6 +13,13 @@ import { z } from 'zod';
  * @link https://trpc.io/docs/router
  */
 export const appRouter = createRouter()
+	// this protects all procedures defined next in this router
+	.middleware(async ({ ctx, next }) => {
+		if (!ctx.session) {
+			throw new TRPCError({ code: 'UNAUTHORIZED' });
+		}
+		return next();
+	})
 	/**
 	 * Add data transformers
 	 * @link https://trpc.io/docs/data-transformers
@@ -40,6 +48,11 @@ export const appRouter = createRouter()
 			return {
 				greeting: `Hello ${input?.text ? input.text : 'world'}`,
 			};
+		},
+	})
+	.query('currentUser', {
+		resolve({ ctx }) {
+			return ctx.session?.onlineAccessInfo?.associated_user;
 		},
 	});
 
