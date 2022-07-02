@@ -4,30 +4,26 @@ import {
 	IndexTable,
 	Layout,
 	Page,
+	PageActions,
 	Stack,
 	TextStyle,
 } from '@shopify/polaris';
+import { TitleBar, useAppBridge } from '@shopify/app-bridge-react';
 import {
 	useCreateSubscriptionMutation,
 	useGetActiveSubscriptionsQuery,
 } from '@graphql/generated';
 
 import { Redirect } from '@shopify/app-bridge/actions';
-import { useAppBridge } from '@shopify/app-bridge-react';
-import { useShopifyTitlebar } from 'src/hooks';
 
 export default function Subscriptions() {
-	const titleBar = useShopifyTitlebar({
-		title: 'Manage Billing',
-		breadCrumbs: { label: 'Dashboard', path: '/' },
-	});
 	const app = useAppBridge();
 	const redirect = Redirect.create(app);
 	const returnUrl = `${process.env.HOST}/subscriptions`;
 
 	const { mutateAsync: createSubscription } = useCreateSubscriptionMutation({
 		onSuccess: (d) => {
-			if (d.appSubscriptionCreate.confirmationUrl) {
+			if (d?.appSubscriptionCreate?.confirmationUrl) {
 				redirect.dispatch(
 					Redirect.Action.REMOTE,
 					d.appSubscriptionCreate.confirmationUrl
@@ -44,7 +40,11 @@ export default function Subscriptions() {
 	);
 
 	return (
-		<Page breadcrumbs={[{ content: 'Home', url: '/' }]} title='Manage billing'>
+		<Page breadcrumbs={[{ content: 'Home', url: '/' }]} title='Manage Billing'>
+			<TitleBar
+				title='Manage Billing'
+				breadcrumbs={{ content: 'Dashboard', url: '/' }}
+			/>
 			<Layout>
 				<Layout.AnnotatedSection
 					title='Create Subscription'
@@ -108,7 +108,9 @@ export default function Subscriptions() {
 								plural: 'subscriptions',
 							}}
 							itemCount={
-								data ? data.appInstallation.activeSubscriptions.length : 0
+								data?.appInstallation
+									? data.appInstallation?.activeSubscriptions.length
+									: 0
 							}
 							headings={[
 								{ title: 'Planname' },
@@ -118,7 +120,7 @@ export default function Subscriptions() {
 							]}
 							selectable={false}
 						>
-							{data?.appInstallation.activeSubscriptions.map(
+							{data?.appInstallation?.activeSubscriptions.map(
 								({ name, status, test, lineItems }, index) => (
 									<IndexTable.Row
 										id={index.toString()}
@@ -146,6 +148,7 @@ export default function Subscriptions() {
 					</Card>
 				</Layout.AnnotatedSection>
 			</Layout>
+			<PageActions />
 		</Page>
 	);
 }
