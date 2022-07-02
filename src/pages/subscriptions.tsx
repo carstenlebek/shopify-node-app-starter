@@ -14,8 +14,13 @@ import {
 
 import { Redirect } from '@shopify/app-bridge/actions';
 import { useAppBridge } from '@shopify/app-bridge-react';
+import { useShopifyTitlebar } from 'src/hooks';
 
 export default function Subscriptions() {
+	const titleBar = useShopifyTitlebar({
+		title: 'Manage Billing',
+		breadCrumbs: { label: 'Dashboard', path: '/' },
+	});
 	const app = useAppBridge();
 	const redirect = Redirect.create(app);
 	const returnUrl = `${process.env.HOST}/subscriptions`;

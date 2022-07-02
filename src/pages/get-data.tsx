@@ -15,8 +15,14 @@ import { CurrencyCode, useGetProductsQuery } from '@graphql/generated';
 import { useCallback, useState } from 'react';
 
 import { trpc } from '@lib/utils/trpc';
+import { useShopifyTitlebar } from 'src/hooks';
 
 export default function GetData() {
+	const titleBar = useShopifyTitlebar({
+		title: 'Get data',
+		breadCrumbs: { label: 'Dashboard', path: '/' },
+	});
+
 	const { data, isLoading } = useGetProductsQuery({
 		first: 10,
 	});
@@ -63,7 +69,10 @@ export default function GetData() {
 	return (
 		<Page breadcrumbs={[{ content: 'Home', url: '/' }]} title='Get data'>
 			<Layout>
-				<Layout.AnnotatedSection title='Get data from the Admin API'>
+				<Layout.AnnotatedSection
+					title='Get data from the Admin API'
+					description='Just write your GraphQl Queries and @graphql-codegen will generate typesafe custom hooks for you.'
+				>
 					<Card>
 						<IndexTable
 							resourceName={{ singular: 'product', plural: 'products' }}
@@ -94,7 +103,9 @@ export default function GetData() {
 									onChange={handleChange}
 									autoComplete='off'
 								/>
-								<Button primary onClick={() => setQuery(text)}>Submit</Button>
+								<Button primary onClick={() => setQuery(text)}>
+									Submit
+								</Button>
 							</Stack>
 						)}
 					</Card>
