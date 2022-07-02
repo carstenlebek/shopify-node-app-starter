@@ -1,6 +1,8 @@
 import { SessionInterface } from '@shopify/shopify-api';
 
-export default function isSessionActive(session: SessionInterface): boolean {
+export default function isSessionActive(
+	session: SessionInterface | undefined
+): boolean {
 	if (session) {
 		const scopesUnchanged = process.env.SCOPES === session.scope;
 		if (
