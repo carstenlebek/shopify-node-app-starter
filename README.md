@@ -1,4 +1,4 @@
-# Typesafe serverless Next.js Shopify app template
+# 🚀🚀 Typesafe serverless Next.js Shopify app template
 
 This is an opinionated starter template for embedded Shopify apps. The biggest opinion is, that Typescript should be used everywhere and it's the only right opinion.
 
