@@ -15,10 +15,11 @@ export async function createContext({
 	// Create your context based on the request object
 	// Will be available as `ctx` in all your resolvers
 
-	// This is just an example of something you'd might want to do in your ctx fn
 	async function getSession() {
 		const session = await Shopify.Utils.loadCurrentSession(req, res, true);
+        console.log("🚀 ~ file: context.ts ~ line 20 ~ getSession ~ session", session)
 		let shop = req.query.shop;
+        console.log("🚀 ~ file: context.ts ~ line 22 ~ getSession ~ shop", shop)
 
 		if (session && shop && session.shop !== shop) {
 			// The current request is for a different shop. Redirect gracefully.
@@ -46,6 +47,7 @@ export async function createContext({
 		}
 
 		const bearerPresent = req.headers.authorization?.match(/Bearer (.*)/);
+        console.log("🚀 ~ file: context.ts ~ line 50 ~ getSession ~ bearerPresent", bearerPresent)
 
 		if (bearerPresent) {
 			if (!shop) {
@@ -61,6 +63,7 @@ export async function createContext({
 		}
 
 		const redirectUrl = `${process.env.HOST}/api/auth?shop=${shop}`;
+        console.log("🚀 ~ file: context.ts ~ line 66 ~ getSession ~ redirectUrl", redirectUrl)
 		// If the request has a bearer token, the app is currently embedded, and must break out of the iframe to
 		// re-authenticate
 		if (bearerPresent) {
