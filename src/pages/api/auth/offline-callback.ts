@@ -1,6 +1,7 @@
 import { ApiRequest, NextApiResponse } from '@types';
 
 import Shopify from '@lib/shopify';
+import { writeEnvToFile } from './../../../../writeEnvToFile';
 
 export default async function handler(req: ApiRequest, res: NextApiResponse) {
 	try {
@@ -9,6 +10,15 @@ export default async function handler(req: ApiRequest, res: NextApiResponse) {
 			res,
 			req.query
 		);
+
+		if (
+			process.env.NODE_ENV === 'development' &&
+			session.shop === process.env.SHOP
+		) {
+			writeEnvToFile([
+				{ key: 'APP_OFFLINE_ACCESSTOKEN', value: session.accessToken },
+			]);
+		}
 
 		console.log(session);
 
