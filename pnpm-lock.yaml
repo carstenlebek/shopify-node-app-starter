@@ -22,6 +22,7 @@ specifiers:
   '@types/react-dom': 18.0.5
   cookie: ^0.5.0
   cookies: ^0.8.0
+  dotenv: ^16.0.1
   envfile: ^6.17.0
   eslint: 8.18.0
   eslint-config-next: 12.2.0
@@ -55,6 +56,7 @@ dependencies:
   '@trpc/server': 9.25.3
   cookie: 0.5.0
   cookies: 0.8.0
+  dotenv: 16.0.1
   envfile: 6.17.0
   graphql: 16.5.0
   graphql-request: 4.3.0_graphql@16.5.0
@@ -3056,7 +3058,6 @@ packages:
   /dotenv/16.0.1:
     resolution: {integrity: sha512-1K6hR6wtk2FviQ4kEiSjFiH5rpzEVi8WW0x96aztHVMhEspNpc4DVOUTEHtEva5VThQ8IaBX1Pe4gSzpVVUsKQ==}
     engines: {node: '>=12'}
-    dev: true
 
   /dset/3.1.2:
     resolution: {integrity: sha512-g/M9sqy3oHe477Ar4voQxWtaPIFw1jTdKZuomOjhCcBx9nHUNn0pu6NopuFFrTh/TRZIKEj+76vLWFu9BNKk+Q==}
