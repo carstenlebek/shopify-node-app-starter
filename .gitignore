@@ -29,15 +29,9 @@ yarn-error.log*
 .env*.local
 .env
 
-# graphql schema and types
-/src/graphql/generated.ts
-/src/graphql/schema.graphql
-
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 
-# admin api types
-./@types/admin-api.d.ts
