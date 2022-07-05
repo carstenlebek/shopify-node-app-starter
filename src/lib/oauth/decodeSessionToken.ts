@@ -41,7 +41,7 @@ function decodeSessionToken(token: string): JwtPayload {
 		// 	algorithms: ['HS256'],
 		// 	clockTolerance: JWT_PERMITTED_CLOCK_TOLERANCE,
 		// }) as JwtPayload;
-	} catch (error) {
+	} catch (error: any) {
 		throw `Failed to parse session token '${token}': ${error.message}`;
 	}
 

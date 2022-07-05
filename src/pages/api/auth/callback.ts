@@ -14,7 +14,7 @@ export default async function handler(req: ApiRequest, res: NextApiResponse) {
 
 		const webhooks = await Shopify.Webhooks.Registry.registerAll({
 			shop: session.shop,
-			accessToken: session.accessToken,
+			accessToken: session.accessToken as string,
 		});
 
 		Object.keys(webhooks).forEach((webhook) => {
@@ -27,8 +27,10 @@ export default async function handler(req: ApiRequest, res: NextApiResponse) {
 			}
 		});
 
-		res.redirect(`/api/auth/offline?host=${req.query.host}&shop=${req.query.shop}`);
-	} catch (e) {
+		res.redirect(
+			`/api/auth/offline?host=${req.query.host}&shop=${req.query.shop}`
+		);
+	} catch (e: any) {
 		console.warn(e);
 		switch (true) {
 			case e instanceof Shopify.Errors.InvalidOAuthError:

@@ -16,7 +16,7 @@ export default async function handler(req: ApiRequest, res: NextApiResponse) {
 			session.shop === process.env.SHOP
 		) {
 			writeEnvToFile([
-				{ key: 'APP_OFFLINE_ACCESSTOKEN', value: session.accessToken },
+				{ key: 'APP_OFFLINE_ACCESSTOKEN', value: session.accessToken as string },
 			]);
 		}
 
@@ -24,7 +24,7 @@ export default async function handler(req: ApiRequest, res: NextApiResponse) {
 
 		const webhooks = await Shopify.Webhooks.Registry.registerAll({
 			shop: session.shop,
-			accessToken: session.accessToken,
+			accessToken: session.accessToken as string,
 		});
 
 		Object.keys(webhooks).forEach((webhook) => {
@@ -38,7 +38,7 @@ export default async function handler(req: ApiRequest, res: NextApiResponse) {
 		});
 
 		res.redirect(`/?host=${req.query.host}&shop=${req.query.shop}`);
-	} catch (e) {
+	} catch (e: any) {
 		console.warn(e);
 		switch (true) {
 			case e instanceof Shopify.Errors.InvalidOAuthError:

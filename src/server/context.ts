@@ -33,7 +33,7 @@ export async function createContext({
 				// );
 				// await client.query({ data: TEST_GRAPHQL_QUERY });
 				return session;
-			} catch (e) {
+			} catch (e: any) {
 				if (
 					// e instanceof Shopify.Errors.HttpResponseError &&
 					e.response.code === 401

@@ -14,7 +14,7 @@ export default async function handler(req: ApiRequest, res: NextApiResponse) {
 				`frame-ancestors https://${session?.shop} https://admin.shopify.com;`
 			)
 			.send(response.body);
-	} catch (err) {
+	} catch (err: any) {
 		console.error(err.message);
 		res.status(500).send(err.message);
 	}
