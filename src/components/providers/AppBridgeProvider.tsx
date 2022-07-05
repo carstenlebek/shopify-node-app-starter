@@ -1,5 +1,5 @@
 import { Banner, Layout, Page } from '@shopify/polaris';
-import { useMemo, useState } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
 
 import { Provider } from '@shopify/app-bridge-react';
 import { useRouter } from 'next/router';
@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
  *
  * See: https://shopify.dev/apps/tools/app-bridge/react-components
  */
-export function AppBridgeProvider({ children }) {
+export function AppBridgeProvider({ children }: { children: ReactNode }) {
 	const router = useRouter();
 
 	const urlParams = new URLSearchParams(router.asPath.split('?')[1]);
@@ -40,14 +40,14 @@ export function AppBridgeProvider({ children }) {
 
 		return {
 			host,
-			apiKey: process.env.SHOPIFY_API_KEY,
+			apiKey: process.env.SHOPIFY_API_KEY || '',
 			forceRedirect: true,
 		};
 	});
 
 	const history = useMemo(
 		() => ({ replace: (previousRoute: string) => router.push(previousRoute) }),
-		[router.push]
+		[router]
 	);
 
 	const clientRouter = useMemo(
