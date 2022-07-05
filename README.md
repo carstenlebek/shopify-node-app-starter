@@ -57,7 +57,7 @@ Found a bug? Please create an issue! ❤️
   - `NGROK_AUTH_TOKEN`: Your [Ngrok auth token](https://dashboard.ngrok.com/get-started/your-authtoken)
   - `UPSTASH_REDIS_REST_URL`: Your Upstash Redis REST url.
   - `UPSTASH_REDIS_REST_TOKEN`: Your Upstash Redis REST token.
-- Run `npm install`
+- Run `pnpm install` or `npm install --force` (There is a peer dependency issue between React 18 and Polaris, but it works.)
 - Run `npm run dev`
 - Your apps ngrok url will be printed to the terminal
 - Install the app to your dev store
