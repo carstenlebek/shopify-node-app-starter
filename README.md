@@ -16,12 +16,21 @@ Found a bug? Please create an issue! ❤️
 
 ## 🤩 Features
 
+- 📝 TypeScript
 - ⚡ Next.js - React Framework for static rendering
 - ✨ Serverless Architecture
 - 💳 App Subscriptions
 - 💾 Session Storage with Redis
 - 🚇 Ngrok for development
-- 🪝 Webhooks set up
+- 🪝 Webhook registration and persistance after server restart
+- 🔑 Ready to use online and offline accesstokens simultaneously
+- 🌐 App context set up. Can be used to store data, that only needs to be fetched once, but is needed in multiple places
+- Request verification set up
+- Link component to convert `<a>` tags to Next Links for relative paths
+- Routepropagation set up
+- Examples for creating and displaying of app subscriptions
+- Loading screen while the app context is initializing
+
 
 ### 🦺 Typesafety
 
