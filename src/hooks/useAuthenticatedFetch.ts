@@ -19,7 +19,7 @@ export function useAuthenticatedFetch() {
 	const app = useAppBridge();
 	const fetchFunction = authenticatedFetch(app);
 
-	return async (uri: string, options: RequestInit) => {
+	return async (uri: RequestInfo, options: RequestInit) => {
 		const response = await fetchFunction(uri, options);
 		checkHeadersForReauthorization(response.headers, app);
 		return response;
@@ -31,12 +31,9 @@ function checkHeadersForReauthorization(
 	app: ClientApplication
 ) {
 	if (headers.get('X-Shopify-API-Request-Failure-Reauthorize') === '1') {
-		console.log('REAUTHORIZE');
 		const authUrlHeader =
 			headers.get('X-Shopify-API-Request-Failure-Reauthorize-Url') ||
 			`/api/auth`;
-
-		console.log('AUTH URL HEADER', authUrlHeader);
 
 		const redirect = Redirect.create(app);
 		redirect.dispatch(

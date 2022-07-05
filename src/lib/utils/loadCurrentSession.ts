@@ -1,9 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
-
+import { NextRequest } from 'next/server';
 import { UPSTASH_REDIS_HEADERS } from '../constants';
 import { getCurrentSessionId } from '@lib/oauth/getCurrentSessionId';
-
-// import http from 'http';
 
 export interface OnlineAccessInfo {
 	expires_in: number;
@@ -43,7 +40,6 @@ export default async function loadCurrentSession(
 	request: NextRequest,
 	isOnline = true
 ): Promise<SessionInterface | undefined> {
-
 	const sessionId = getCurrentSessionId(request, isOnline);
 	if (!sessionId) {
 		return Promise.resolve(undefined);

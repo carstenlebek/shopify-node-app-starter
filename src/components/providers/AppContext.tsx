@@ -1,5 +1,5 @@
 import { DisplayText, Spinner, Stack } from '@shopify/polaris';
-import { createContext, useContext } from 'react';
+import { ReactNode, createContext, useContext } from 'react';
 
 import { OnlineAccessInfo } from '@lib/utils/loadCurrentSession';
 import { trpc } from '@lib/utils/trpc';
@@ -8,7 +8,7 @@ const AppContext = createContext<{
 	user: Partial<OnlineAccessInfo['associated_user']> | undefined;
 }>({ user: {} });
 
-export const AppContextProvider = ({ children }) => {
+export const AppContextProvider = ({ children }: { children: ReactNode }) => {
 	const { data: currentUser, isLoading } = trpc.useQuery(['currentUser'], {
 		staleTime: 3000,
 	});

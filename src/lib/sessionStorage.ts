@@ -1,14 +1,11 @@
 import Shopify, { SessionInterface } from '@shopify/shopify-api';
 
+import { UPSTASH_REDIS_HEADERS } from './constants';
 import fetch from 'node-fetch';
 
 const upstashRedisRestUrl = process.env.UPSTASH_REDIS_REST_URL;
 
-const headers = {
-	Authorization: `Bearer ${process.env.UPSTASH_REDIS_REST_TOKEN}`,
-	Accept: 'application/json',
-	'Content-Type': 'application/json',
-};
+const headers = UPSTASH_REDIS_HEADERS;
 
 const storeCallback = async (session: SessionInterface): Promise<boolean> => {
 	const { result } = await fetch(
