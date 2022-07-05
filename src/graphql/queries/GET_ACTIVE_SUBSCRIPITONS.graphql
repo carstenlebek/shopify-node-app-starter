@@ -1,0 +1,23 @@
+query getActiveSubscriptions {
+	appInstallation {
+		activeSubscriptions {
+			name
+			status
+			lineItems {
+				plan {
+					pricingDetails {
+						... on AppRecurringPricing {
+							__typename
+							price {
+								amount
+								currencyCode
+							}
+							interval
+						}
+					}
+				}
+			}
+			test
+		}
+	}
+}
