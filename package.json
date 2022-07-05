@@ -7,8 +7,8 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"get-schema": "graphql-codegen --config ./get-schema.yml",
-		"generate": "graphql-codegen --config ./generate-hooks.yml"
+		"get-schema": "graphql-codegen --config ./get-schema.yml -r dotenv/config",
+		"generate": "graphql-codegen --config ./generate-hooks.yml "
 	},
 	"dependencies": {
 		"@graphql-codegen/schema-ast": "^2.4.1",
@@ -26,6 +26,7 @@
 		"@trpc/server": "^9.25.3",
 		"cookie": "^0.5.0",
 		"cookies": "^0.8.0",
+		"dotenv": "^16.0.1",
 		"envfile": "^6.17.0",
 		"graphql": "^16.5.0",
 		"graphql-request": "^4.3.0",
