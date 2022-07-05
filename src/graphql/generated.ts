@@ -32432,7 +32432,7 @@ export type GetActiveSubscriptionsQueryVariables = Exact<{ [key: string]: never;
 export type GetActiveSubscriptionsQuery = { __typename?: 'QueryRoot', appInstallation?: { __typename?: 'AppInstallation', activeSubscriptions: Array<{ __typename?: 'AppSubscription', name: string, status: AppSubscriptionStatus, test: boolean, lineItems: Array<{ __typename?: 'AppSubscriptionLineItem', plan: { __typename?: 'AppPlanV2', pricingDetails: { __typename: 'AppRecurringPricing', interval: AppPricingInterval, price: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } } | { __typename?: 'AppUsagePricing' } } }> }> } | null };
 
 export type GetProductsQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['Int']>;
+  first: Scalars['Int'];
 }>;
 
 
@@ -32506,7 +32506,7 @@ export const useGetActiveSubscriptionsQuery = <
       options
     );
 export const GetProductsDocument = `
-    query getProducts($first: Int) {
+    query getProducts($first: Int!) {
   products(first: $first) {
     nodes {
       id
@@ -32529,11 +32529,11 @@ export const useGetProductsQuery = <
       TData = GetProductsQuery,
       TError = unknown
     >(
-      variables?: GetProductsQueryVariables,
+      variables: GetProductsQueryVariables,
       options?: UseQueryOptions<GetProductsQuery, TError, TData>
     ) =>
     useQuery<GetProductsQuery, TError, TData>(
-      variables === undefined ? ['getProducts'] : ['getProducts', variables],
+      ['getProducts', variables],
       useShopifyApi<GetProductsQuery, GetProductsQueryVariables>(GetProductsDocument).bind(null, variables),
       options
     );
