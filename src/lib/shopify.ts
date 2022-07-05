@@ -1,7 +1,6 @@
-import Shopify, {ApiVersion} from "@shopify/shopify-api";
-
-import SessionStorage from "./sessionStorage";
-import webhooks from "../webhooks";
+import SessionStorage from './sessionStorage';
+import Shopify from '@shopify/shopify-api';
+import webhooks from '../webhooks';
 
 Shopify.Context.initialize({
 	API_KEY: process.env.SHOPIFY_API_KEY,
@@ -10,10 +9,10 @@ Shopify.Context.initialize({
 	HOST_NAME: process.env.HOST.replace(/https:\/\//, ''),
 	HOST_SCHEME: process.env.HOST.split('://')[0],
 	IS_EMBEDDED_APP: true,
-	API_VERSION: ApiVersion.April22,
+	API_VERSION: process.env.SHOPIFY_API_VERSION,
 	SESSION_STORAGE: SessionStorage,
 });
 
-Shopify.Webhooks.Registry.addHandlers(webhooks)
+Shopify.Webhooks.Registry.addHandlers(webhooks);
 
-export default Shopify
+export default Shopify;
