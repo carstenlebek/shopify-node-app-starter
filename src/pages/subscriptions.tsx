@@ -134,10 +134,12 @@ export default function Subscriptions() {
 										<IndexTable.Cell>{test}</IndexTable.Cell>
 										<IndexTable.Cell>
 											{parseFloat(
+												// @ts-ignore
 												lineItems[0].plan.pricingDetails.price.amount
 											).toLocaleString('en-US', {
 												style: 'currency',
 												currency:
+													// @ts-ignore
 													lineItems[0].plan.pricingDetails.price.currencyCode,
 											})}
 										</IndexTable.Cell>

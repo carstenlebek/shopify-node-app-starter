@@ -14,7 +14,7 @@ const TEST_GRAPHQL_QUERY = `
 
 export default async function verifyRequest(
 	req: NextRequest,
-	query
+	query: any
 ): Promise<NextResponse> {
 	const res = NextResponse;
 
@@ -36,7 +36,7 @@ export default async function verifyRequest(
 			// );
 			// await client.query({ data: TEST_GRAPHQL_QUERY });
 			return res.next();
-		} catch (e) {
+		} catch (e: any) {
 			if (
 				// e instanceof Shopify.Errors.HttpResponseError &&
 				e.response.code === 401

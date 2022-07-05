@@ -5,7 +5,9 @@ import { readFile, writeFileSync } from 'fs';
 
 import { fileURLToPath } from 'url';
 
-export const writeEnvToFile = (envVariables) => {
+export const writeEnvToFile = (
+	envVariables: { key: string; value: string }[]
+) => {
 	const __filename = fileURLToPath(import.meta.url);
 
 	const __dirname = path.dirname(__filename);

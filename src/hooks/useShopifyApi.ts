@@ -12,7 +12,7 @@ import { useAuthenticatedFetch } from './useAuthenticatedFetch';
  */
 export const useShopifyApi = <TData, TVariables>(
 	query: string
-): ((variables: TVariables) => Promise<TData>) => {
+): ((variables: TVariables | undefined) => Promise<TData>) => {
 	const authenticatedFetch = useAuthenticatedFetch();
 	const graphQLClient = new GraphQLClient('/api/graphql', {
 		fetch: authenticatedFetch,

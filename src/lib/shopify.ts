@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import SessionStorage from './sessionStorage';
 import Shopify from '@shopify/shopify-api';
 import webhooks from '../webhooks';

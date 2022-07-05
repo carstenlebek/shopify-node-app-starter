@@ -1,10 +1,10 @@
 const webhooks = {
-    "APP_UNINSTALLED": {
-        path: '/api/webhooks',
-        webhookHandler: async (topic, shop, body) => {
-            console.log("App uninstalled")
-        }
-    }
-}
+	APP_UNINSTALLED: {
+		path: '/api/webhooks',
+		webhookHandler: async (topic: string, shop: string, body: any) => {
+			console.log('App uninstalled');
+		},
+	},
+};
 
-export default webhooks
+export default webhooks;

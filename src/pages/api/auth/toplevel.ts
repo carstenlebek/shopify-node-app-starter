@@ -1,7 +1,7 @@
 import { ApiRequest, NextApiResponse } from '@types';
 
+// @ts-ignore
 import { CookieSerializeOptions } from 'cookie';
-import { NextCookies } from 'next/dist/server/web/spec-extension/cookies';
 import Shopify from '@lib/shopify';
 import { TOP_LEVEL_OAUTH_COOKIE } from '@lib/constants';
 import topLevelAuthRedirect from '@helpers/top-level-auth-redirect';

@@ -8,6 +8,7 @@ const upstashRedisRestUrl = process.env.UPSTASH_REDIS_REST_URL;
 const headers = UPSTASH_REDIS_HEADERS;
 
 const storeCallback = async (session: SessionInterface): Promise<boolean> => {
+	// @ts-ignore
 	const { result } = await fetch(
 		`${upstashRedisRestUrl}/set/${session.id}${
 			!session.id.includes('offline') ? '?EX=300' : ''
@@ -23,6 +24,7 @@ const storeCallback = async (session: SessionInterface): Promise<boolean> => {
 };
 
 const loadCallback = async (id: string): Promise<SessionInterface> => {
+	// @ts-ignore
 	const { result } = await fetch(`${upstashRedisRestUrl}/get/${id}`, {
 		method: 'GET',
 		headers,
@@ -32,6 +34,7 @@ const loadCallback = async (id: string): Promise<SessionInterface> => {
 };
 
 const deleteCallback = async (id: string): Promise<boolean> => {
+	// @ts-ignore
 	const { result } = await fetch(`${upstashRedisRestUrl}/getdel/${id}`, {
 		method: 'GET',
 		headers,
