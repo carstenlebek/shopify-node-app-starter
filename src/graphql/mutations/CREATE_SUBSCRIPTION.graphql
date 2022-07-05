@@ -1,0 +1,30 @@
+mutation createSubscription(
+	$returnUrl: URL!
+	$planName: String!
+	$planPrice: Decimal!
+) {
+	appSubscriptionCreate(
+		name: $planName
+		returnUrl: $returnUrl
+		test: true
+		lineItems: [
+			{
+				plan: {
+					appRecurringPricingDetails: {
+						price: { amount: $planPrice, currencyCode: USD }
+					}
+				}
+			}
+		]
+	) {
+		userErrors {
+			field
+			message
+		}
+		confirmationUrl
+		appSubscription {
+			id
+			status
+		}
+	}
+}
