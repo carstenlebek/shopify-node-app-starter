@@ -27,9 +27,16 @@ export default async function handler(req: ApiRequest, res: NextApiResponse) {
 			}
 		});
 
-		res.redirect(
-			`/api/auth/offline?host=${req.query.host}&shop=${req.query.shop}`
-		);
+		if (
+			process.env.NODE_ENV === 'development' ||
+			process.env.USE_OFFLINE_ACCESS_TOKEN === 'true'
+		) {
+			res.redirect(
+				`/api/auth/offline?host=${req.query.host}&shop=${req.query.shop}`
+			);
+		} else {
+			res.redirect(`/?host=${req.query.host}&shop=${req.query.shop}`);
+		}
 	} catch (e: any) {
 		console.warn(e);
 		switch (true) {
