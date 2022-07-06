@@ -53,6 +53,7 @@ Found a bug? Please create an issue! ❤️
   - `SHOPIFY_API_KEY`: The Shopify Api key of the app, you have just created
   - `SHOPIFY_API_SECRET_KEY`: The Shopify Api secret key of the app, you have just created
   - `SCOPES`: The [access scopes](https://shopify.dev/api/usage/access-scopes) your app needs
+  - `USE_OFFLINE_ACCESS_TOKEN`: Set to true, if you want to use offline accesstokens
   - `SHOP`: Your dev stores url
   - `NGROK_AUTH_TOKEN`: Your [Ngrok auth token](https://dashboard.ngrok.com/get-started/your-authtoken)
   - `UPSTASH_REDIS_REST_URL`: Your Upstash Redis REST url.
