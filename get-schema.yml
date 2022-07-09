@@ -1,0 +1,8 @@
+schema:
+  - https://${SHOP}/admin/api/${SHOPIFY_API_VERSION}/graphql.json:
+      headers:
+        X-Shopify-Access-Token: ${APP_OFFLINE_ACCESSTOKEN}
+generates:
+  ./src/graphql/schema.graphql:
+    plugins:
+      - schema-ast
