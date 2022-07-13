@@ -35,7 +35,11 @@ export default async function verifyRequest(
 			// 	session.accessToken
 			// );
 			// await client.query({ data: TEST_GRAPHQL_QUERY });
-			return res.next();
+			return res.next({
+				headers: {
+					'Content-Security-Policy': `frame-ancestors https://${shop} https://admin.shopify.com;`,
+				},
+			});
 		} catch (e: any) {
 			if (
 				// e instanceof Shopify.Errors.HttpResponseError &&

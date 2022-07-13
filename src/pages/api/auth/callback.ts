@@ -1,6 +1,9 @@
 import { ApiRequest, NextApiResponse } from '@types';
 
+import { Redis } from '@upstash/redis';
 import Shopify from '@lib/shopify';
+
+const SESSION_COOKIE_NAME = 'shopify_app_session';
 
 export default async function handler(req: ApiRequest, res: NextApiResponse) {
 	try {
@@ -10,7 +13,18 @@ export default async function handler(req: ApiRequest, res: NextApiResponse) {
 			req.query
 		);
 
-		console.log(session);
+		const redis = new Redis({
+			url: process.env.UPSTASH_REDIS_REST_URL as string,
+			token: process.env.UPSTASH_REDIS_REST_TOKEN as string,
+		});
+
+		const redisShop = await redis.get(session.shop);
+
+		if (!redisShop || redisShop !== process.env.SCOPES) {
+			await redis.set(session.shop, session.scope);
+			// You can do your app setup here, e.g. creating a
+			// db entry.
+		}
 
 		const webhooks = await Shopify.Webhooks.Registry.registerAll({
 			shop: session.shop,
@@ -26,6 +40,11 @@ export default async function handler(req: ApiRequest, res: NextApiResponse) {
 				);
 			}
 		});
+
+		res.setHeader(
+			'Set-Cookie',
+			SESSION_COOKIE_NAME + '=' + session.id + '; 0; Path=/; HttpOnly; Secure'
+		);
 
 		if (
 			process.env.NODE_ENV === 'development' ||

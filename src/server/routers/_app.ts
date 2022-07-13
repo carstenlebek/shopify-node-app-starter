@@ -50,9 +50,12 @@ export const appRouter = createRouter()
 			};
 		},
 	})
-	.query('currentUser', {
+	.query('appContext', {
 		resolve({ ctx }) {
-			return ctx.session?.onlineAccessInfo?.associated_user;
+			return {
+				user: ctx.session?.onlineAccessInfo?.associated_user,
+				shop: ctx.session?.shop,
+			};
 		},
 	});
 

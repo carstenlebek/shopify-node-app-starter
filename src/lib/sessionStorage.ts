@@ -1,46 +1,34 @@
 import Shopify, { SessionInterface } from '@shopify/shopify-api';
 
-import { UPSTASH_REDIS_HEADERS } from './constants';
-import fetch from 'node-fetch';
+import { Redis } from '@upstash/redis';
 
-const upstashRedisRestUrl = process.env.UPSTASH_REDIS_REST_URL;
-
-const headers = UPSTASH_REDIS_HEADERS;
+const redis = new Redis({
+	url: process.env.UPSTASH_REDIS_REST_URL as string,
+	token: process.env.UPSTASH_REDIS_REST_TOKEN as string,
+});
 
 const storeCallback = async (session: SessionInterface): Promise<boolean> => {
-	// @ts-ignore
-	const { result } = await fetch(
-		`${upstashRedisRestUrl}/set/${session.id}${
-			!session.id.includes('offline') ? '?EX=300' : ''
-		}`,
-		{
-			method: 'POST',
-			headers,
-			body: JSON.stringify(session),
-		}
-	).then((res) => res.json());
+	const result = await redis.set(
+		session.id,
+		JSON.stringify(session),
+		session.id.includes('offline') ? {} : { ex: 36000 }
+	);
 
 	return result === 'OK';
 };
 
-const loadCallback = async (id: string): Promise<SessionInterface> => {
-	// @ts-ignore
-	const { result } = await fetch(`${upstashRedisRestUrl}/get/${id}`, {
-		method: 'GET',
-		headers,
-	}).then((res) => res.json());
+const loadCallback = async (
+	id: string
+): Promise<SessionInterface | { [key: string]: unknown } | undefined> => {
+	const result = await redis.get<Promise<SessionInterface | null>>(id);
 
-	return JSON.parse(result);
+	return result ? result : undefined;
 };
 
 const deleteCallback = async (id: string): Promise<boolean> => {
-	// @ts-ignore
-	const { result } = await fetch(`${upstashRedisRestUrl}/getdel/${id}`, {
-		method: 'GET',
-		headers,
-	}).then((res) => res.json());
+	const result = await redis.del(id);
 
-	return !!result;
+	return result > 0;
 };
 
 const SessionStorage = new Shopify.Session.CustomSessionStorage(
