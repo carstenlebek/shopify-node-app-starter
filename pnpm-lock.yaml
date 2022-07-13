@@ -20,6 +20,7 @@ specifiers:
   '@types/node': 18.0.0
   '@types/react': 18.0.14
   '@types/react-dom': 18.0.5
+  '@upstash/redis': ^1.9.0
   cookie: ^0.5.0
   cookies: ^0.8.0
   dotenv: ^16.0.1
@@ -54,6 +55,7 @@ dependencies:
   '@trpc/next': 9.25.3_gjz2vgkn3qadfgugkh65jdpnzq
   '@trpc/react': 9.25.3_ms3at4dqhndwrpx5xroirjehyy
   '@trpc/server': 9.25.3
+  '@upstash/redis': 1.9.0
   cookie: 0.5.0
   cookies: 0.8.0
   dotenv: 16.0.1
@@ -1928,6 +1930,14 @@ packages:
       '@typescript-eslint/types': 5.30.0
       eslint-visitor-keys: 3.3.0
     dev: true
+
+  /@upstash/redis/1.9.0:
+    resolution: {integrity: sha512-S4BLRVTx1wEMx2m06ejYbCW5rzqSfxGgmCsWzbYrY7JMYjkWgdr8LkBpP5ZvnvfWoq+eXCCOST9bhpIM7HKnMw==}
+    dependencies:
+      isomorphic-fetch: 3.0.0
+    transitivePeerDependencies:
+      - encoding
+    dev: false
 
   /abbrev/1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
@@ -4538,7 +4548,6 @@ packages:
       whatwg-fetch: 3.6.2
     transitivePeerDependencies:
       - encoding
-    dev: true
 
   /isomorphic-ws/4.0.1_ws@8.8.0:
     resolution: {integrity: sha512-BhBvN2MBpWTaSHdWRb/bwdZJ1WaehQ2L1KngkCkfLUGF0mAWAT1sQUQacEmQ0jXkFw/czDXPNQSL5u2/Krsz1w==}
@@ -7125,7 +7134,6 @@ packages:
 
   /whatwg-fetch/3.6.2:
     resolution: {integrity: sha512-bJlen0FcuU/0EMLrdbJ7zOnW6ITZLrZMIarMUVmdKtsGvZna8vxKYaexICWPfZ8qwf9fzNq+UEIZrnSaApt6RA==}
-    dev: true
 
   /whatwg-url/11.0.0:
     resolution: {integrity: sha512-RKT8HExMpoYx4igMiVMY83lN6UeITKJlBQ+vR/8ZJ8OCdSiN3RwCq+9gH0+Xzj0+5IrM6i4j/6LuvzbZIQgEcQ==}

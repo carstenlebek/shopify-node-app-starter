@@ -24,6 +24,7 @@
 		"@trpc/next": "^9.25.3",
 		"@trpc/react": "^9.25.3",
 		"@trpc/server": "^9.25.3",
+		"@upstash/redis": "^1.9.0",
 		"cookie": "^0.5.0",
 		"cookies": "^0.8.0",
 		"dotenv": "^16.0.1",
