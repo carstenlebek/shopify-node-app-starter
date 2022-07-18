@@ -88,3 +88,5 @@ Found a bug? Please create an issue! ❤️
 - [tRPC](https://trpc.io)
 - [React Query](https://react-query.tanstack.com)
 - [GraphQL Code Generator](https://www.graphql-code-generator.com)
+
+Made by [Carsten Lebek](https://clebek.dev)
