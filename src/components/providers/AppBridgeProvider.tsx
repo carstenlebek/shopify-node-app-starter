@@ -26,16 +26,12 @@ export function AppBridgeProvider({ children }: { children: ReactNode }) {
 	// Using state in this way is preferable to useMemo.
 	// See: https://stackoverflow.com/questions/60482318/version-of-usememo-for-caching-a-value-that-will-never-change
 	const [appBridgeConfig] = useState(() => {
-		let host = query.host;
+		let host = '';
 		if (typeof window !== 'undefined') {
-			if (host) {
-				window.sessionStorage.setItem('__SHOPIFY_DEV_HOST', host);
-			} else {
-				let h = window.sessionStorage.getItem('__SHOPIFY_DEV_HOST');
-				if (h) {
-					host = h;
-				}
-			}
+			// @ts-ignore
+			host = query.host || window.__SHOPIFY_DEV_HOST
+			// @ts-ignore
+			window.__SHOPIFY_DEV_HOST = host
 		}
 
 		return {
