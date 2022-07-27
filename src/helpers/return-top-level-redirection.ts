@@ -12,7 +12,7 @@ export default function returnTopLevelRedirection(
 		const res = new NextResponse(null, {
 			headers: {
 				'X-Shopify-API-Request-Failure-Reauthorize': '1',
-				'X-Shopify-API-Request-Failure-Reauthorize-Url': `${process.env.HOST}/api/auth?shop=clebek.myshopify.com`,
+				'X-Shopify-API-Request-Failure-Reauthorize-Url': redirectUrl,
 			},
 		});
 		return res;
