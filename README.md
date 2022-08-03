@@ -1,4 +1,4 @@
-# 🚀🚀 Typesafe Shopify Node App Starter
+# 🚀🚀 Shopify App Template | Next.js | Typescript
 
 This is an opinionated starter template for embedded Shopify apps. The biggest opinion is, that Typescript should be used everywhere and it's the only right opinion.
 
