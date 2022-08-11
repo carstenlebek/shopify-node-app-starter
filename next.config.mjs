@@ -1,7 +1,7 @@
 import * as envfile from 'envfile';
 import * as ngrok from 'ngrok';
 
-import { output, session } from '@shopify/cli-kit';
+import { store as cliKitStore, output, session } from '@shopify/cli-kit';
 import path, { resolve } from 'path';
 import { readFile, writeFileSync } from 'fs';
 
@@ -32,6 +32,9 @@ const writeEnvToFile = (envVariables) => {
 };
 
 async function setEnvironmentAndReturnHost() {
+
+	await cliKitStore.initializeCliKitStore();
+
 	const token = await session.ensureAuthenticatedPartners();
 
 	const orgId = await cli.selectOrg(token);
