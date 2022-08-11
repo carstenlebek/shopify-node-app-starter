@@ -6,6 +6,13 @@ This Template utilizes Middleware and Next.js APIs for OAuth, so no custom serve
 
 Found a bug? Please create an issue! ❤️
 
+Apps built with this template:
+
+| <img src="https://cdn.shopify.com/app-store/listing_images/17bb7072fce41022eb1d956025f805d2/icon/CLCT5M3R9vgCEAE=.png?height=72&width=72" /> | [Manufactory](https://apps.shopify.com/manufactory-production) |
+|----------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+
+Want your app listed? Create a PR!
+
 ## Table of Contents
 
 - 🤩 Features
