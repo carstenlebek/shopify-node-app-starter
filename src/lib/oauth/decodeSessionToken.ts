@@ -1,5 +1,7 @@
 // import jwt from 'jsonwebtoken';
+
 import jwt_decode from 'jwt-decode';
+
 const JWT_PERMITTED_CLOCK_TOLERANCE = 5;
 
 interface JwtPayload {
@@ -29,9 +31,6 @@ function decodeSessionToken(token: string): JwtPayload {
 	try {
 		var decoded: JwtPayload = jwt_decode(token);
 		var decodedHeader: JwtHeader = jwt_decode(token, { header: true });
-
-		console.log('JWT', decoded);
-		console.log('JWT HEADER', decodedHeader);
 
 		// TODO: Verify JWT Token
 

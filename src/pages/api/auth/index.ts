@@ -6,8 +6,6 @@ import { TOP_LEVEL_OAUTH_COOKIE } from '@lib/constants';
 export default async function handler(req: ApiRequest, res: NextApiResponse) {
 	const shop = req.query.shop;
 
-	console.log('API AUTH');
-
 	if (!shop) {
 		res.status(500);
 		res.send('No shop provided');

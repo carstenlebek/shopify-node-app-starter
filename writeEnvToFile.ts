@@ -25,7 +25,6 @@ export const writeEnvToFile = (
 				parsedFile[envVar.key] = envVar.value;
 			}
 		});
-		console.log(parsedFile);
 		writeFileSync(envPath, envfile.stringify(parsedFile));
 	});
 };
