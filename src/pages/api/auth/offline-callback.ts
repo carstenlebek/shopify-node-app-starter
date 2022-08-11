@@ -20,8 +20,6 @@ export default async function handler(req: ApiRequest, res: NextApiResponse) {
 			]);
 		}
 
-		console.log(session);
-
 		const webhooks = await Shopify.Webhooks.Registry.registerAll({
 			shop: session.shop,
 			accessToken: session.accessToken as string,
