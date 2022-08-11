@@ -13,6 +13,7 @@ Found a bug? Please create an issue! ❤️
 - 🤓 Getting Started
 - 🎣 Fetching Data
 - 🧰 Built with
+- ☕️ Buy me a coffee
 
 ## 🤩 Features
 
@@ -88,5 +89,11 @@ Found a bug? Please create an issue! ❤️
 - [tRPC](https://trpc.io)
 - [React Query](https://react-query.tanstack.com)
 - [GraphQL Code Generator](https://www.graphql-code-generator.com)
+
+## ☕️ Buy me a coffee
+
+Found this repo useful? Buy me a coffee to keep me awake 🤩
+
+  [![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/carstenlebek) 
 
 Made by [Carsten Lebek](https://clebek.dev)
