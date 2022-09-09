@@ -33,7 +33,7 @@ const writeEnvToFile = (envVariables) => {
 
 async function setEnvironmentAndReturnHost() {
 
-	await cliKitStore.initializeCliKitStore();
+	await cliKitStore.cliKitStore();
 
 	const token = await session.ensureAuthenticatedPartners();
 
