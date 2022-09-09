@@ -76,8 +76,8 @@ export async function updateURLs(apiKey, url) {
 
 	const variables = {
 		apiKey,
-		appUrl: url,
-		redir: [
+		applicationUrl: url,
+		redirectUrlWhitelist: [
 			`${url}/api/auth`,
 			`${url}/api/auth/callback`,
 			`${url}/api/auth/offline`,
