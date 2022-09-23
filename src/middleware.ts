@@ -27,7 +27,7 @@ export async function middleware(req: NextRequest) {
 		});
 		const redisShop = await redis.get(query.shop);
 
-		if (!redisShop) {
+		if (!redisShop || redisShop !== process.env.SCOPES) {
 			return NextResponse.redirect(
 				`${process.env.HOST}/api/auth/offline?shop=${query.shop}`
 			);
