@@ -3,8 +3,6 @@ import { ApiRequest, NextApiResponse } from '@types';
 import { Redis } from '@upstash/redis';
 import Shopify from '@lib/shopify';
 
-const SESSION_COOKIE_NAME = 'shopify_app_session';
-
 export default async function handler(req: ApiRequest, res: NextApiResponse) {
 	try {
 		const session = await Shopify.Auth.validateAuthCallback(
@@ -40,11 +38,6 @@ export default async function handler(req: ApiRequest, res: NextApiResponse) {
 				);
 			}
 		});
-
-		res.setHeader(
-			'Set-Cookie',
-			SESSION_COOKIE_NAME + '=' + session.id + '; 0; Path=/; HttpOnly; Secure'
-		);
 
 		if (
 			process.env.NODE_ENV === 'development' ||
